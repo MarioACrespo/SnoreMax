@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pokemon Fetch!</title>
     <link rel="stylesheet" type="text/css" href="styles.css" />
   </head>
   <body>
-    <form id="addPokemonForm">
+    <form id="PokemonForm">
+      <h1>Pokémon by Generation</h1>
+      <button id="listPokemonButton">List Pokémon</button>
+      <div id="pokemonList"></div>
       <input type="text" id="pokemonName" />
-      <button type="submit">Add Pokemon</button>
+      <button type="submit" id="pokemonList">Get Pokemon</button>
+      <div id="root"></div>
     </form>
-    <div id="root"></div>
+
     <script src="pokemon.js"></script>
   </body>
 </html>
