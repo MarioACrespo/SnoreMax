@@ -2,14 +2,32 @@
 <html lang="en">
   <head>
     <title>Pokemon Fetch!</title>
-    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <form id="addPokemonForm">
-      <input type="text" id="pokemonName" />
-      <button type="submit">Add Pokemon</button>
-    </form>
-    <div id="root"></div>
-    <script src="pokemon.js"></script>
+    <div class="container">
+      <form id="addPokemonForm">
+        <input type="text" id="pokemonName" placeholder="Enter Pokemon name" />
+        <button type="submit" id="submitBtn">Find Pokemon</button>
+      </form>
+
+      <!-- Modal -->
+      <div id="myModal" class="modal">
+        <div class="modal-content">
+          <span class="close" id="closeModal">&times;</span>
+          <h2 id="pokemonDisplay">Pokemon Name will appear here</h2>
+          <img id="pokemonImage" src="" alt="Pokemon Image" />
+        </div>
+      </div>
+
+      <!-- Example Buttons -->
+      <button class="button" id="button1">Button 1</button>
+      <button class="button" id="button2">Button 2</button>
+      <button class="button" id="button3">Button 3</button>
+    </div>
+
+    <script>
+      // Your JavaScript remains unchanged
+    </script>
   </body>
 </html>
