@@ -1,13 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pokemon Fetch!</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="container">
-      <form id="addPokemonForm">
-        <input type="text" id="pokemonName" placeholder="Enter Pokemon name" />
+      <!-- Button 1: Search via Name -->
+      <button
+        class="button"
+        id="button1"
+        style="position: absolute; top: 50px; left: 50px"
+      >
+        Search via Name
+      </button>
+
+      <!-- Button 2: Example Button -->
+      <button
+        class="button"
+        id="button2"
+        style="position: absolute; top: 50px; right: 50px"
+      >
+        Example Button 2
+      </button>
+
+      <!-- Form with Search Bar and Find Pokemon Button (Initially Hidden) -->
+      <form id="addPokemonForm" style="display: none">
+        <input
+          type="text"
+          id="pokemonName"
+          placeholder="Enter Pokemon name"
+          style="margin-bottom: 10px"
+        />
         <button type="submit" id="submitBtn">Find Pokemon</button>
       </form>
 
@@ -19,15 +45,62 @@
           <img id="pokemonImage" src="" alt="Pokemon Image" />
         </div>
       </div>
-
-      <!-- Example Buttons -->
-      <button class="button" id="button1">Button 1</button>
-      <button class="button" id="button2">Button 2</button>
-      <button class="button" id="button3">Button 3</button>
     </div>
 
     <script>
-      // Your JavaScript remains unchanged
+      const API_URL = "https://pokeapi.co/api/v2/pokemon";
+
+      // Elements
+      const button1 = document.getElementById("button1");
+      const form = document.getElementById("addPokemonForm");
+      const pokemonNameInput = document.getElementById("pokemonName");
+      const submitBtn = document.getElementById("submitBtn");
+      const modal = document.getElementById("myModal");
+      const closeModal = document.getElementById("closeModal");
+
+      // Button 1: Show Search Bar and Find Pokemon Button
+      button1.addEventListener("click", () => {
+        form.style.display = "flex"; // Show the form
+        button1.style.display = "none"; // Hide button 1
+      });
+
+      // Form Submit: Fetch Pokemon Data
+      form.addEventListener("submit", (event) => {
+        event.preventDefault(); // Prevent form submission
+
+        const pokemonName = pokemonNameInput.value;
+
+        fetch(`${API_URL}/${pokemonName.toLowerCase()}`)
+          .then((response) => {
+            if (!response.ok) throw new Error("Pokemon not found");
+            return response.json();
+          })
+          .then((newPokemon) => {
+            // Show modal with Pokemon data
+            const pokemonDisplay = document.getElementById("pokemonDisplay");
+            const pokemonImage = document.getElementById("pokemonImage");
+
+            pokemonDisplay.textContent = newPokemon.name;
+            pokemonImage.src =
+              newPokemon.sprites.other.dream_world.front_default;
+
+            modal.style.display = "flex";
+          })
+          .catch(() => {
+            alert("Pokemon not found! Try again.");
+          });
+      });
+
+      // Close Modal
+      closeModal.onclick = () => {
+        modal.style.display = "none"; // Hide the modal
+      };
+
+      window.onclick = (event) => {
+        if (event.target === modal) {
+          modal.style.display = "none"; // Hide the modal
+        }
+      };
     </script>
   </body>
 </html>

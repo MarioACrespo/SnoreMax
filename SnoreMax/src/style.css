@@ -41,6 +41,14 @@ button {
   background-color: #1e88e5;
 }
 
+/* Positioning for Button 1 */
+#button1 {
+  position: absolute;
+  top: 50px; /* Adjust this value to move the button vertically */
+  left: 50px; /* Adjust this value to move the button horizontally */
+  background-color: #fff; /* Optional: Different color for Button 1 */
+}
+
 /* Edit modal here */
 .modal {
   display: none; /* Hidden by default */
