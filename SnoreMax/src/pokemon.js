@@ -1,3 +1,4 @@
+/*
 const API_URL = "https://pokeapi.co/api/v2/pokemon?limit=10000"; // Adjust limit as needed to fetch all Pokémon
 const root = document.getElementById("root"); // For displaying the Pokémon card
 const pokemonList = document.getElementById("pokemonList"); // For displaying the Pokémon list
@@ -74,7 +75,7 @@ const listPokemonButton = document.getElementById("listPokemonButton");
 listPokemonButton.addEventListener("click", () => {
   getAllPokemon();
 });
-
+*/
 ////
 
 // I'm not sure which version is better, the one below is suppoesed to use models, but noooooo of course it won't work, anyway I'm going to push, here's to hoping I don't blow up both our computers :)
@@ -354,3 +355,169 @@ PokemonModel: Fetches data from the API.
 PokemonView: Shows the Pokémon on the web page.
 PokemonController: Connects the model and view, handling events.
 */
+
+// const search_term = document.getElementById("search_q");
+// const search_btn = document.getElementById("search-btn");
+
+// // api https://pokeapi.co/docs/v2#pokemon
+// const getPokemonData = async (term) => {
+//   document.getElementById("show_error").classList.remove("show");
+//   document.getElementById("show_error").classList.add("hidden");
+
+//   const url = `https://pokeapi.co/api/v2/pokemon/${term}`;
+//   const response = await fetch(url);
+
+//   if (response.status == 404 || response.statusText == "Not Found") {
+//     document.getElementById("show_error").classList.add("show");
+//     document.getElementById("show_error").classList.remove("hidden");
+//     return;
+//   }
+
+//   const pokemon = await response.json();
+//   debugger;
+
+// update ui with data
+/*
+document
+    .getElementById("update_img")
+    .setAttribute("src", pokemon.sprites.other.dream_world.front_default);
+  document.getElementById("update_name").innerHTML = pokemon.name;
+  document.getElementById(
+    "update_candy_title"
+  ).innerHTML = `${pokemon.name} Candy`;
+  document.getElementById("update_hp").innerHTML = `HP ${Math.floor(
+    Math.random() * pokemon.stats[0].base_stat + 1
+  )}/${pokemon.stats[0].base_stat}`;
+  document.getElementById(
+    "update_cp"
+  ).innerHTML = `XP ${pokemon.base_experience}`;
+  document.getElementById(
+    "update_type"
+  ).innerHTML = `${pokemon.types[0].type.name} / ${pokemon.types[1].type.name}`;
+  document.getElementById("update_weight").innerHTML = `${pokemon.weight}kg`;
+  document.getElementById("update_height").innerHTML = `0.${pokemon.height}m`;
+  document.getElementById("update_stardust").innerHTML = Math.floor(
+    Math.random() * 10000 + 1
+  );
+  document.getElementById("update_candy").innerHTML = Math.floor(
+    Math.random() * 200 + 1
+  );
+};
+
+search_btn.addEventListener("click", () => getPokemonData(search_term.value));
+  */
+
+// /
+// /
+// /
+// /
+// /
+// /
+// /
+// /
+// /
+// /
+// /
+//////
+const API_URL = "https://pokeapi.co/api/v2/pokemon?limit=10000"; // Adjust limit as needed to fetch all Pokémon
+const root = document.getElementById("root"); // For displaying the Pokémon card
+const pokemonList = document.getElementById("pokemonList"); // For displaying the Pokémon list
+const form = document.getElementById("PokemonForm");
+form.addEventListener("submit", (event) => {
+  // Prevents the form from submitting and refreshing the page
+  event.preventDefault();
+});
+// Function to fetch and display all Pokémon
+async function getAllPokemon() {
+  try {
+    const response = await fetch(API_URL);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data: ${response.statusText}`);
+    }
+    const data = await response.json();
+
+    // Clear the existing list
+    pokemonList.innerHTML = "";
+
+    // Create buttons for each Pokémon
+    data.results.forEach((pokemon) => {
+      const pokemonButton = document.createElement("button");
+      pokemonButton.textContent =
+        pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
+      pokemonButton.className = "pokemon-button";
+
+      // Add event listener to display Pokémon info on click
+      pokemonButton.addEventListener("click", () => {
+        displayPokemonCard(pokemon.name);
+      });
+
+      pokemonList.appendChild(pokemonButton);
+    });
+  } catch (error) {
+    console.error("Error:", error.message);
+  }
+}
+
+// Function to fetch and display details of a Pokémon
+async function displayPokemonCard(pokemonName) {
+  document
+    .getElementById("update_img")
+    .setAttribute("src", pokemon.sprites.other.dream_world.front_default);
+  document.getElementById("update_name").innerHTML = pokemon.name;
+  document.getElementById(
+    "update_candy_title"
+  ).innerHTML = `${pokemon.name} Candy`;
+  document.getElementById("update_hp").innerHTML = `HP ${Math.floor(
+    Math.random() * pokemon.stats[0].base_stat + 1
+  )}/${pokemon.stats[0].base_stat}`;
+  document.getElementById(
+    "update_cp"
+  ).innerHTML = `XP ${pokemon.base_experience}`;
+  document.getElementById(
+    "update_type"
+  ).innerHTML = `${pokemon.types[0].type.name} / ${pokemon.types[1].type.name}`;
+  document.getElementById("update_weight").innerHTML = `${pokemon.weight}kg`;
+  document.getElementById("update_height").innerHTML = `0.${pokemon.height}m`;
+  document.getElementById("update_stardust").innerHTML = Math.floor(
+    Math.random() * 10000 + 1
+  );
+  document.getElementById("update_candy").innerHTML = Math.floor(
+    Math.random() * 200 + 1
+  );
+
+  button1.addEventListener("click", () => getPokemonData(search_term.value)); //
+  try {
+    const response = await fetch(
+      `https://pokeapi.co/api/v2/pokemon/${pokemonName}/`
+    );
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch Pokémon details: ${response.statusText}`
+      );
+    }
+    const pokemon = await response.json();
+
+    // Clear only the card display area
+    root.innerHTML = "";
+
+    // Create elements for the Pokémon Card
+    const div = document.createElement("div");
+    const image = document.createElement("img");
+    const name = document.createElement("h1");
+    div.className = "card";
+    image.src = pokemon.sprites.other.dream_world.front_default;
+    name.textContent =
+      pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
+    div.appendChild(name);
+    div.appendChild(image);
+    root.appendChild(div);
+  } catch (error) {
+    console.error("Error:", error.message);
+  }
+}
+
+// Add event listener to the "List Pokémon" button
+const listPokemonButton = document.getElementById("listPokemonButton");
+listPokemonButton.addEventListener("click", () => {
+  getAllPokemon();
+});

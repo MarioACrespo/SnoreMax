@@ -1,53 +1,24 @@
-const API_URL = "https://pokeapi.co/api/v2/pokemon";
+import "./style.css";
+import javascriptLogo from "./javascript.svg";
+import viteLogo from "/vite.svg";
+import { setupCounter } from "./counter.js";
 
-// Elements
-const button1 = document.getElementById("button1");
-const button2 = document.getElementById("button2");
-const form = document.getElementById("addPokemonForm");
-const pokemonNameInput = document.getElementById("pokemonName");
-const submitBtn = document.getElementById("submitBtn");
-const modal = document.getElementById("myModal");
-const closeModal = document.getElementById("closeModal");
+document.querySelector("#app").innerHTML = `
+  <div>
+    <a href="https://vite.dev" target="_blank">
+      <img src="${viteLogo}" class="logo" alt="Vite logo" />
+    </a>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
+      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
+    </a>
+    <h1>Hello Vite!</h1>
+    <div class="card">
+      <button id="counter" type="button"></button>
+    </div>
+    <p class="read-the-docs">
+      Click on the Vite logo to learn more
+    </p>
+  </div>
+`;
 
-// Button 1: Show Search Bar and Find Pokemon Button
-button1.addEventListener("click", () => {
-  form.style.display = "flex"; // Show the form
-  button1.style.display = "none"; // Hide button 1
-});
-
-// Form Submit: Fetch Pokemon Data
-form.addEventListener("submit", (event) => {
-  event.preventDefault(); // Prevent form submission
-
-  const pokemonName = pokemonNameInput.value;
-
-  fetch(`${API_URL}/${pokemonName.toLowerCase()}`)
-    .then((response) => {
-      if (!response.ok) throw new Error("Pokemon not found");
-      return response.json();
-    })
-    .then((newPokemon) => {
-      // Show modal with Pokemon data
-      const pokemonDisplay = document.getElementById("pokemonDisplay");
-      const pokemonImage = document.getElementById("pokemonImage");
-
-      pokemonDisplay.textContent = newPokemon.name;
-      pokemonImage.src = newPokemon.sprites.other.dream_world.front_default;
-
-      modal.style.display = "flex";
-    })
-    .catch(() => {
-      alert("Pokemon not found! Try again.");
-    });
-});
-
-// Close Modal
-closeModal.onclick = () => {
-  modal.style.display = "none"; // Hide the modal
-};
-
-window.onclick = (event) => {
-  if (event.target === modal) {
-    modal.style.display = "none"; // Hide the modal
-  }
-};
+setupCounter(document.querySelector("#counter"));
