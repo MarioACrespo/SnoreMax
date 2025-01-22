@@ -112,4 +112,74 @@ body {
   left: 200px; /* Move it slightly to the left */
 }
 
-/* Close Button for Modal
+/* Close Button for Modal*/
+
+#root {
+  display: flex;
+  flex-direction: row;
+}
+
+img {
+  display: flex;
+  align-self: center;
+  height: 100px;
+  width: 170px;
+  margin: 3px;
+  opacity: 1;
+  object-fit: contain;
+  border-style: solid;
+  border-color: black;
+  background-color: white;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  border-radius: 5%;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black;
+  margin: 10px;
+  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.4);
+  width: 180px;
+  height: 300px;
+}
+
+h1 {
+  display: flex;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  align-self: center;
+}
+
+.pokemoninfo-button {
+  background-color: #04aa6d;
+  border: 1px solid green;
+  color: white;
+  padding: 10px 24px;
+  cursor: pointer;
+  width: 50%;
+  display: block;
+}
+
+.pokemoninfo-button:not(:last-child) {
+  border-bottom: none;
+}
+
+/*Add a background color on hover*/
+.pokemoninfo-button:hover {
+  background-color: #3e8e41;
+}
+
+.pokemon-button {
+  margin: 5px;
+  padding: 10px;
+  background-color: #f2f2f2;
+  border: 1px solid #f70808;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.pokemon-button:hover {
+  background-color: #ac0f0f;
+}

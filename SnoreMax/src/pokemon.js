@@ -1,4 +1,3 @@
-/*
 const API_URL = "https://pokeapi.co/api/v2/pokemon?limit=10000"; // Adjust limit as needed to fetch all Pokémon
 const root = document.getElementById("root"); // For displaying the Pokémon card
 const pokemonList = document.getElementById("pokemonList"); // For displaying the Pokémon list
@@ -78,303 +77,278 @@ listPokemonButton.addEventListener("click", () => {
 
 ////
 
-I'm not sure which version is better, the one below is suppoesed to use models, but noooooo of course it won't work, anyway I'm going to push, here's to hoping I don't blow up both our computers :)
-*/
+// I'm not sure which version is better, the one below is suppoesed to use models, but noooooo of course it won't work, anyway I'm going to push, here's to hoping I don't blow up both our computers :)
 
 // Model: Handles data fetching and storage
 
 // This code below is here as back up.............................................................
-/*
-class PokemonModel {
-  constructor(apiUrl) {
-    this.apiUrl = apiUrl;
-    this.pokemonList = [];
-  }
 
-  async fetchAllPokemon() {
-    try {
-      const response = await fetch(this.apiUrl);
-      if (!response.ok) {
-        throw new Error(`Failed to fetch data: ${response.statusText}`);
-      }
-      const data = await response.json();
-      this.pokemonList = data.results;
-    } catch (error) {
-      console.error("Error fetching Pokémon:", error);
-    }
-  }
+// class PokemonModel {
+//   constructor(apiUrl) {
+//     this.apiUrl = apiUrl;
+//     this.pokemonList = [];
+//   }
 
-  async fetchPokemonDetails(pokemonName) {
-    try {
-      const response = await fetch(
-        `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
-      );
-      if (!response.ok) {
-        throw new Error(
-          `Failed to fetch Pokémon details: ${response.statusText}`
-        );
-      }
-      return await response.json();
-    } catch (error) {
-      console.error("Error fetching Pokémon details:", error);
-      return null;
-    }
-  }
+//   async fetchAllPokemon() {
+//     try {
+//       const response = await fetch(this.apiUrl);
+//       if (!response.ok) {
+//         throw new Error(`Failed to fetch data: ${response.statusText}`);
+//       }
+//       const data = await response.json();
+//       this.pokemonList = data.results;
+//     } catch (error) {
+//       console.error("Error fetching Pokémon:", error);
+//     }
+//   }
 
-  getPokemonNames() {
-    return this.pokemonList.map((pokemon) => pokemon.name);
-  }
-}
+//   async fetchPokemonDetails(pokemonName) {
+//     try {
+//       const response = await fetch(
+//         `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
+//       );
+//       if (!response.ok) {
+//         throw new Error(
+//           `Failed to fetch Pokémon details: ${response.statusText}`
+//         );
+//       }
+//       return await response.json();
+//     } catch (error) {
+//       console.error("Error fetching Pokémon details:", error);
+//       return null;
+//     }
+//   }
 
-// View: Manages the DOM
-class PokemonView {
-  constructor(pokemonListContainerId, cardContainerId) {
-    this.pokemonListContainer = document.getElementById(pokemonListContainerId);
-    this.cardContainer = document.getElementById(cardContainerId);
-  }
+//   getPokemonNames() {
+//     return this.pokemonList.map((pokemon) => pokemon.name);
+//   }
+// }
 
-  displayPokemonList(pokemonNames, onPokemonClick) {
-    this.pokemonListContainer.innerHTML = ""; // Clear existing list
-    pokemonNames.forEach((name) => {
-      const button = document.createElement("button");
-      button.textContent = name.charAt(0).toUpperCase() + name.slice(1);
-      button.className = "pokemon-button";
-      button.addEventListener("click", () => onPokemonClick(name)); // Attach click event
-      this.pokemonListContainer.appendChild(button);
-    });
-  }
+// // View: Manages the DOM
+// class PokemonView {
+//   constructor(pokemonListContainerId, cardContainerId) {
+//     this.pokemonListContainer = document.getElementById(pokemonListContainerId);
+//     this.cardContainer = document.getElementById(cardContainerId);
+//   }
 
-  displayPokemonCard(pokemon) {
-    this.cardContainer.innerHTML = ""; // Clear existing card
-    if (!pokemon) return;
+//   displayPokemonList(pokemonNames, onPokemonClick) {
+//     this.pokemonListContainer.innerHTML = ""; // Clear existing list
+//     pokemonNames.forEach((name) => {
+//       const button = document.createElement("button");
+//       button.textContent = name.charAt(0).toUpperCase() + name.slice(1);
+//       button.className = "pokemon-button";
+//       button.addEventListener("click", () => onPokemonClick(name)); // Attach click event
+//       this.pokemonListContainer.appendChild(button);
+//     });
+//   }
 
-    const div = document.createElement("div");
-    const image = document.createElement("img");
-    const name = document.createElement("h1");
-    div.className = "card";
-    image.src =
-      pokemon.sprites.other.dream_world.front_default ||
-      pokemon.sprites.front_default;
-    name.textContent =
-      pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
-    div.appendChild(name);
-    div.appendChild(image);
-    this.cardContainer.appendChild(div);
-  }
-}
+//   displayPokemonCard(pokemon) {
+//     this.cardContainer.innerHTML = ""; // Clear existing card
+//     if (!pokemon) return;
 
-// Controller: Connects the Model and View
-class PokemonController {
-  constructor(model, view) {
-    this.model = model;
-    this.view = view;
-  }
+//     const div = document.createElement("div");
+//     const image = document.createElement("img");
+//     const name = document.createElement("h1");
+//     div.className = "card";
+//     image.src =
+//       pokemon.sprites.other.dream_world.front_default ||
+//       pokemon.sprites.front_default;
+//     name.textContent =
+//       pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
+//     div.appendChild(name);
+//     div.appendChild(image);
+//     this.cardContainer.appendChild(div);
+//   }
+// }
 
-  async initialize() {
-    await this.model.fetchAllPokemon();
-    const pokemonNames = this.model.getPokemonNames();
-    this.view.displayPokemonList(pokemonNames, (name) =>
-      this.showPokemonDetails(name)
-    );
-  }
+// // Controller: Connects the Model and View
+// class PokemonController {
+//   constructor(model, view) {
+//     this.model = model;
+//     this.view = view;
+//   }
 
-  async showPokemonDetails(pokemonName) {
-    const pokemon = await this.model.fetchPokemonDetails(pokemonName);
-    this.view.displayPokemonCard(pokemon);
-  }
-}
+//   async initialize() {
+//     await this.model.fetchAllPokemon();
+//     const pokemonNames = this.model.getPokemonNames();
+//     this.view.displayPokemonList(pokemonNames, (name) =>
+//       this.showPokemonDetails(name)
+//     );
+//   }
 
-// Initialize the application
-const API_URL = "https://pokeapi.co/api/v2/pokemon?limit=10000";
-const model = new PokemonModel(API_URL);
-const view = new PokemonView("pokemonList", "root");
-const controller = new PokemonController(model, view);
-///
-document.getElementById("PokemonForm").addEventListener("submit", (event) => {
-  event.preventDefault(); // Prevent the form from reloading the page
-  const pokemonName = document.getElementById("pokemonName").value.trim();
-  if (pokemonName) {
-    controller.showPokemonDetails(pokemonName);
-  }
-});
+//   async showPokemonDetails(pokemonName) {
+//     const pokemon = await this.model.fetchPokemonDetails(pokemonName);
+//     this.view.displayPokemonCard(pokemon);
+//   }
+// }
 
-///
-document.getElementById("listPokemonButton").addEventListener("click", () => {
-  controller.initialize();
-});
+// // Initialize the application
+// const API_URL = "https://pokeapi.co/api/v2/pokemon?limit=10000";
+// const model = new PokemonModel(API_URL);
+// const view = new PokemonView("pokemonList", "root");
+// const controller = new PokemonController(model, view);
+// ///
+// document.getElementById("PokemonForm").addEventListener("submit", (event) => {
+//   event.preventDefault(); // Prevent the form from reloading the page
+//   const pokemonName = document.getElementById("pokemonName").value.trim();
+//   if (pokemonName) {
+//     controller.showPokemonDetails(pokemonName);
+//   }
+// });
 
-*/
+// ///
+// document.getElementById("listPokemonButton").addEventListener("click", () => {
+//   controller.initialize();
+// });
 
-class PokemonModel {
-  constructor(apiUrl) {
-    this.apiUrl = apiUrl;
-    this.pokemonList = [];
-    this.pokemoninfo = [];
-  }
+// class PokemonModel {
+//   constructor(apiUrl) {
+//     this.apiUrl = apiUrl;
+//     this.pokemonList = [];
+//     this.pokemoninfo = [];
+//   }
 
-  async fetchAllPokemon() {
-    try {
-      const response = await fetch(this.apiUrl);
-      if (!response.ok) {
-        throw new Error(`Failed to fetch data: ${response.statusText}`);
-      }
-      const data = await response.json();
-      this.pokemonList = data.results;
-    } catch (error) {
-      console.error("Error fetching Pokémon:", error);
-    }
-  }
+//   async fetchAllPokemon() {
+//     try {
+//       const response = await fetch(this.apiUrl);
+//       if (!response.ok) {
+//         throw new Error(`Failed to fetch data: ${response.statusText}`);
+//       }
+//       const data = await response.json();
+//       this.pokemonList = data.results;
+//     } catch (error) {
+//       console.error("Error fetching Pokémon:", error);
+//     }
+//   }
 
-  async fetchPokemonDetails(pokemonName) {
-    try {
-      const response = await fetch(
-        `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
-      );
-      if (!response.ok) {
-        throw new Error(
-          `Failed to fetch Pokémon details: ${response.statusText}`
-        );
-      }
-      return await response.json();
-    } catch (error) {
-      console.error("Error fetching Pokémon details:", error);
-      return null;
-    }
-  }
+//   async fetchPokemonDetails(pokemonName) {
+//     try {
+//       const response = await fetch(
+//         `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
+//       );
+//       if (!response.ok) {
+//         throw new Error(
+//           `Failed to fetch Pokémon details: ${response.statusText}`
+//         );
+//       }
+//       return await response.json();
+//     } catch (error) {
+//       console.error("Error fetching Pokémon details:", error);
+//       return null;
+//     }
+//   }
 
-  ///
-  async fetchPokemoninfo(pokemonName) {
-    try {
-      const response = await fetch(
-        `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
-      );
-      if (!response.ok) {
-        throw new Error(
-          `Failed to fetch Pokémon details: ${response.statusText}`
-        );
-      }
-      return await response.json();
-    } catch (error) {
-      console.error("Error fetching Pokémon details:", error);
-      return null;
-    }
-  }
+//   getPokemonNames() {
+//     return this.pokemonList.map((pokemon) => pokemon.name);
+//   }
 
-  getPokemonNames() {
-    return this.pokemonList.map((pokemon) => pokemon.name);
-  }
+//   getPokemoninfo() {
+//     return this.pokemoninfo.map((pokemon) => pokemon.abilities);
+//   }
+// }
 
-  getPokemoninfo() {
-    return this.pokemoninfo.map((pokemon) => pokemon.abilities);
-  }
-}
+// // View: Manages the DOM
+// class PokemonView {
+//   constructor(pokemonListContainerId, cardContainerId) {
+//     this.pokemonListContainer = document.getElementById(pokemonListContainerId);
+//     this.cardContainer = document.getElementById(cardContainerId);
+//   }
 
-///Test for pokemon details:
+//   displayPokemonList(pokemonNames, onPokemonClick) {
+//     this.pokemonListContainer.innerHTML = ""; // Clear existing list
+//     pokemonNames.forEach((name) => {
+//       const button = document.createElement("button");
+//       button.textContent = name.charAt(0).toUpperCase() + name.slice(1);
+//       button.className = "pokemon-button";
+//       button.addEventListener("click", () => onPokemonClick(name)); // Attach click event
+//       this.pokemonListContainer.appendChild(button);
+//     });
+//   }
 
-///.........................
+//   displayPokemonCard(pokemon) {
+//     this.cardContainer.innerHTML = ""; // Clear existing card
+//     if (!pokemon) return;
 
-// View: Manages the DOM
-class PokemonView {
-  constructor(pokemonListContainerId, cardContainerId) {
-    this.pokemonListContainer = document.getElementById(pokemonListContainerId);
-    this.pokemoninfoContainer = document.getElementById(pokemoninfoContainerId);
-    this.cardContainer = document.getElementById(cardContainerId);
-  }
+//     const div = document.createElement("div");
+//     const image = document.createElement("img");
+//     const name = document.createElement("h1");
+//     div.className = "card";
+//     image.src =
+//       pokemon.sprites.other.dream_world.front_default ||
+//       pokemon.sprites.front_default;
+//     name.textContent =
+//       pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
+//     div.appendChild(name);
+//     div.appendChild(image);
+//     this.cardContainer.appendChild(div);
+//   }
+//   //pokemon info
+//   //this is what is spaming the buttons on your page
+//   displayPokemoninfo(pokemoninfo, onStatsClick) {
+//     this.pokemoninfoContainer.innerHTML = ""; // Clear existing list
+//     pokemoninfo.forEach((pokemonz) => {
+//       const button = document.createElement("button");
+//       button.textContent =
+//         pokemonz.ability.name.charAt(0).toUpperCase() +
+//         pokemonz.ability.name.slice(1);
+//       button.className = "pokemoninfo-button";
+//       button.addEventListener("click", () =>
+//         onStatsClick(pokemonz.ability.name)
+//       ); // Attach click event
+//       this.pokemoninfoContainer.appendChild(button);
+//     });
+//   }
 
-  displayPokemonList(pokemonNames, onPokemonClick) {
-    this.pokemonListContainer.innerHTML = ""; // Clear existing list
-    pokemonNames.forEach((name) => {
-      const button = document.createElement("button");
-      button.textContent = name.charAt(0).toUpperCase() + name.slice(1);
-      button.className = "pokemon-button";
-      button.addEventListener("click", () => onPokemonClick(name)); // Attach click event
-      this.pokemonListContainer.appendChild(button);
-    });
-  }
+//   //............
+// }
 
-  displayPokemonCard(pokemon) {
-    this.cardContainer.innerHTML = ""; // Clear existing card
-    if (!pokemon) return;
+// // Controller: Connects the Model and View
+// class PokemonController {
+//   constructor(model, view) {
+//     this.model = model;
+//     this.view = view;
+//   }
 
-    const div = document.createElement("div");
-    const image = document.createElement("img");
-    const name = document.createElement("h1");
-    div.className = "card";
-    image.src =
-      pokemon.sprites.other.dream_world.front_default ||
-      pokemon.sprites.front_default;
-    name.textContent =
-      pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
-    div.appendChild(name);
-    div.appendChild(image);
-    this.cardContainer.appendChild(div);
-  }
-  //pokemon info
-  displayPokemoninfo(pokemoninfo, onStatsClick) {
-    this.pokemoninfoContainer.innerHTML = ""; // Clear existing list
-    pokemoninfo.forEach((pokemonz) => {
-      const button = document.createElement("button");
-      button.textContent =
-        pokemonz.ability.name.charAt(0).toUpperCase() +
-        pokemonz.ability.name.slice(1);
-      button.className = "pokemoninfo-button";
-      button.addEventListener("click", () =>
-        onStatsClick(pokemonz.ability.name)
-      ); // Attach click event
-      this.pokemoninfoContainer.appendChild(button);
-    });
-  }
+//   async initialize() {
+//     await this.model.fetchAllPokemon();
+//     const pokemonNames = this.model.getPokemonNames();
+//     this.view.displayPokemonList(pokemonNames, (name) =>
+//       this.showPokemonDetails(name)
+//     );
 
-  //............
-}
-
-// Controller: Connects the Model and View
-class PokemonController {
-  constructor(model, view) {
-    this.model = model;
-    this.view = view;
-  }
-
-  async initialize() {
-    await this.model.fetchAllPokemon();
-    const pokemonNames = this.model.getPokemonNames();
-    this.view.displayPokemonList(pokemonNames, (name) =>
-      this.showPokemonDetails(name)
-    );
-
-    // Fetch Pokémon abilities (optional, depending on the use case)
-    const pokemoninfo = await this.model.fetchPokemoninfo();
-    const abilities = this.model.getPokemoninfo();
-    this.view.displayPokemoninfo(abilities, (ability) =>
-      this.showAbilityDetails(ability)
-    );
-  }
-  //........
-  async showAbilityDetails(abilityName) {
-    const abilityDetails = await this.model.fetchPokemonDetails(abilityName);
-    this.view.displayPokemoninfo(abilityDetails);
-  }
-}
+//     // Fetch Pokémon abilities (optional, depending on the use case)
+//     const pokemoninfo = await this.model.fetchPokemoninfo();
+//     const abilities = this.model.getPokemoninfo();
+//     this.view.displayPokemoninfo(abilities, (ability) =>
+//       this.showAbilityDetails(ability)
+//     );
+//   }
+//   //........
+//   async showAbilityDetails(abilityName) {
+//     const abilityDetails = await this.model.fetchPokemonDetails(abilityName);
+//     this.view.displayPokemoninfo(abilityDetails);
+//   }
+// }
 
 // Initialize the application
-const API_URL = "https://pokeapi.co/api/v2/pokemon?limit=10000";
-const model = new PokemonModel(API_URL);
-const view = new PokemonView("pokemonList", "pokemoninfo", "root");
-const controller = new PokemonController(model, view);
+// const API_URL = "https://pokeapi.co/api/v2/pokemon?limit=10000";
+// const model = new PokemonModel(API_URL);
+// const view = new PokemonView("pokemonList", "pokemoninfo", "root");
+// const controller = new PokemonController(model, view);
 
-///
-document.getElementById("PokemonForm").addEventListener("submit", (event) => {
-  event.preventDefault(); // Prevent the form from reloading the page
-  const pokemonName = document.getElementById("pokemonName").value.trim();
-  if (pokemonName) {
-    controller.showPokemonDetails(pokemonName);
-  }
-});
+// ///
+// document.getElementById("PokemonForm").addEventListener("submit", (event) => {
+//   event.preventDefault(); // Prevent the form from reloading the page
+//   const pokemonName = document.getElementById("pokemonName").value.trim();
+//   if (pokemonName) {
+//     controller.showPokemonDetails(pokemonName);
+//   }
+// });
 
-///
-document.getElementById("listPokemonButton").addEventListener("click", () => {
-  controller.initialize();
-});
+// ///
+// document.getElementById("listPokemonButton").addEventListener("click", () => {
+//   controller.initialize();
+// });
 /*
 PokemonModel: Fetches data from the API.
 PokemonView: Shows the Pokémon on the web page.
