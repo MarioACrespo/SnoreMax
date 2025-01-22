@@ -13,7 +13,6 @@ body {
   align-items: center;
   position: relative;
 }
-
 /* Button Styling r*/
 .button {
   position: absolute;
@@ -28,13 +27,11 @@ body {
   border: none;
   border-radius: 8px;
 }
-
 /* Button 2 (Show Pokémon List) */
 #button2 {
   top: 150px; /* Positioned below button 1 */
   left: 50px;
 }
-
 /* Form Styling */
 #addPokemonForm {
   display: none;
@@ -48,7 +45,6 @@ body {
   left: 50%;
   transform: translateX(-50%);
 }
-
 /* Input Field Styling */
 #pokemonName {
   width: 90%;
@@ -58,7 +54,6 @@ body {
   border: 2px solid #fff;
   border-radius: 8px;
 }
-
 /* Submit Button Styling */
 #submitBtn {
   border-radius: 100%;
@@ -70,7 +65,6 @@ body {
   background-color: #1e88e5;
   margin-top: 10px;
 }
-
 /* Modal Styling */
 .modal {
   display: none;
@@ -83,7 +77,6 @@ body {
   justify-content: center;
   align-items: center;
 }
-
 .modal-content {
   background-color: white;
   padding: 20px;
@@ -91,7 +84,6 @@ body {
   text-align: center;
   width: 400px;
 }
-
 .close {
   color: #aaa;
   font-size: 28px;
@@ -100,7 +92,6 @@ body {
   top: 10px;
   right: 20px;
 }
-
 /* Pokémon List Styling */
 #pokemonList {
   margin-top: 30px;
@@ -108,7 +99,6 @@ body {
   flex-direction: column;
   gap: 10px;
 }
-
 /* Pokémon Button Styling */
 .pokemon-button {
   background-color: #04aa6d;
@@ -190,8 +180,7 @@ h1 {
 }
 .pokemon-button:hover {
   background-color: #ac0f0f;
-
+}
 .pokemon-button:hover {
   background-color: #3e8e41;
-
 }
