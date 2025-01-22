@@ -1,69 +1,115 @@
-#root {
+/* Body Styles */
+body {
+  margin: 0;
+  background-image: url("pokedex.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  height: 100vh;
+  overflow: hidden;
   display: flex;
-  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
-img {
-  display: flex;
-  align-self: center;
-  height: 100px;
-  width: 170px;
-  margin: 3px;
-  opacity: 1;
-  object-fit: contain;
-  border-style: solid;
-  border-color: black;
-  background-color: white;
-}
-
-.card {
+/* Form Styling (Search Bar) */
+#addPokemonForm {
   display: flex;
   flex-direction: column;
-  align-content: center;
-  border-radius: 5%;
-  border-width: 5px;
-  border-style: solid;
-  border-color: black;
-  margin: 10px;
-  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.4);
-  width: 180px;
-  height: 300px;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  position: absolute;
+  width: 480px;
+  top: 300px; /* Adjust this value to position the form vertically */
+  left: 480px; /* Adjust this value to position the form horizontally */
 }
 
-h1 {
-  display: flex;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  align-self: center;
+/* Input Field Styling */
+#pokemonName {
+  position: absolute;
+  top: -15px; /* Adjust for vertical position */
+  left: 190px; /* Adjust for horizontal position */
+  width: 490px; /* New width for resizing */
+  height: 40px; /* New height for resizing */
+  padding: 8px; /* Adjusted padding for text */
+  font-size: 18px; /* Increased font size for better readability */
+  text-align: center;
+  border: 2px solid #ffffff; /* Optional: Add a border for better visibility */
+  border-radius: 8px; /* Rounded corners */
 }
 
-.pokemoninfo-button {
-  background-color: #04aa6d; /* Green background */
-  border: 1px solid green; /* Green border */
-  color: white; /* White text */
-  padding: 10px 24px; /* Some padding */
-  cursor: pointer; /* Pointer/hand icon */
-  width: 50%; /* Set a width if needed */
-  display: block; /* Make the buttons appear below each other */
-}
-
-.pokemoninfo-button:not(:last-child) {
-  border-bottom: none; /* Prevent double borders */
-}
-
-/* Add a background color on hover */
-.pokemoninfo-button:hover {
-  background-color: #3e8e41;
-}
-
-.pokemon-button {
-  margin: 5px;
+/* Submit Button Styling */
+#submitBtn {
+  border-radius: 100%;
   padding: 10px;
-  background-color: #f2f2f2;
-  border: 1px solid #f70808;
-  border-radius: 5px;
+  font-size: 16px;
   cursor: pointer;
+  width: 100px;
+  height: 100px;
+  background-color: #1e88e5;
+  margin-top: 10px; /* Adds space between the input and button */
 }
-.pokemon-button:hover {
-  background-color: #ac0f0f;
+
+/* Button Styling - Search by Name */
+#button1 {
+  position: absolute;
+  top: 100px; /* Adjust this value to move it vertically */
+  left: 50px; /* Adjust this value to move it horizontally */
+  background-color: #fff;
+  width: 200px; /* Set the width of the button */
+  height: 80px; /* Set the height of the button */
+  color: black;
+  text-align: center;
+  line-height: 80px; /* Vertically center the text inside the button */
+  font-size: 18px; /* Adjust font size */
+  cursor: pointer;
+  border: none;
+  border-radius: 8px; /* Rounded corners */
 }
+
+/* Button Styling - Catalogue */
+#button2 {
+  position: absolute;
+  top: 100px; /* Adjust this value to move it vertically */
+  right: 50px; /* Adjust this value to move it horizontally */
+  background-color: #fff;
+  width: 200px; /* Set the width of the button */
+  height: 80px; /* Set the height of the button */
+  color: black;
+  text-align: center;
+  line-height: 80px; /* Vertically center the text inside the button */
+  font-size: 18px; /* Adjust font size */
+  cursor: pointer;
+  border: none;
+  border-radius: 8px; /* Rounded corners */
+}
+
+/* Modal Styling */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal Content Styling */
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 470px;
+  text-align: center;
+  position: relative; /* Keep this relative to the modal */
+  top: 20px; /* Move it a bit downward */
+  left: 200px; /* Move it slightly to the left */
+}
+
+/* Close Button for Modal
