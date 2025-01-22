@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokemon Fetch!</title>
+    <link rel="stylesheet" href="src/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Form to Find Pokémon by Name -->
+      <form id="addPokemonForm">
+        <input
+          type="text"
+          id="pokemonName"
+          placeholder="Enter Pokemon name"
+          style="margin-bottom: 10px"
+        />
+        <button type="submit" id="submitBtn">Find Pokemon</button>
+      </form>
+
+      <!-- Pokémon List (List of 10) -->
+      <div id="pokemonList"></div>
+
+      <!-- Pagination Buttons -->
+      <div id="pagination">
+        <button id="prevPage">Back</button>
+        <button id="nextPage">Next</button>
+      </div>
+
+      <!-- Modal Dialog for displaying Pokémon information -->
+      <dialog id="pokemonDialog">
+        <div class="modal-content">
+          <h2 id="pokemonDisplay">Pokemon Name will appear here</h2>
+          <img id="pokemonImage" src="" alt="Pokemon Image" />
+        </div>
+      </dialog>
+    </div>
+
+    <script src="src/main.js"></script>
+  </body>
+</html>
