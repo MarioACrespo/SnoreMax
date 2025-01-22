@@ -37,7 +37,7 @@ h1 {
   align-self: center;
 }
 
-.pokemonList button {
+.pokemoninfo-button {
   background-color: #04aa6d; /* Green background */
   border: 1px solid green; /* Green border */
   color: white; /* White text */
@@ -47,12 +47,12 @@ h1 {
   display: block; /* Make the buttons appear below each other */
 }
 
-.pokemonList button:not(:last-child) {
+.pokemoninfo-button:not(:last-child) {
   border-bottom: none; /* Prevent double borders */
 }
 
 /* Add a background color on hover */
-.pokemonList button:hover {
+.pokemoninfo-button:hover {
   background-color: #3e8e41;
 }
 
@@ -60,10 +60,10 @@ h1 {
   margin: 5px;
   padding: 10px;
   background-color: #f2f2f2;
-  border: 1px solid #ccc;
+  border: 1px solid #f70808;
   border-radius: 5px;
   cursor: pointer;
 }
 .pokemon-button:hover {
-  background-color: #e0e0e0;
+  background-color: #ac0f0f;
 }
