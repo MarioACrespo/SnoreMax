@@ -1,7 +1,8 @@
+/* Body Styles */
 body {
   margin: 0;
   background-image: url("pokedex.jpg");
-  background-size: 80%;
+  background-size: cover;
   background-position: center;
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -13,25 +14,35 @@ body {
   position: relative;
 }
 
+/* Form Styling (Search Bar) */
 #addPokemonForm {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 20px;
-}
-
-#pokemonName {
-  padding: 10px;
-  font-size: 16px;
-  text-align: center;
-  width: 200px;
-}
-
-button {
   position: absolute;
-  left: 390px;
-  top: 360px;
+  width: 480px;
+  top: 300px; /* Adjust this value to position the form vertically */
+  left: 480px; /* Adjust this value to position the form horizontally */
+}
+
+/* Input Field Styling */
+#pokemonName {
+  position: absolute;
+  top: -15px; /* Adjust for vertical position */
+  left: 190px; /* Adjust for horizontal position */
+  width: 490px; /* New width for resizing */
+  height: 40px; /* New height for resizing */
+  padding: 8px; /* Adjusted padding for text */
+  font-size: 18px; /* Increased font size for better readability */
+  text-align: center;
+  border: 2px solid #ffffff; /* Optional: Add a border for better visibility */
+  border-radius: 8px; /* Rounded corners */
+}
+
+/* Submit Button Styling */
+#submitBtn {
   border-radius: 100%;
   padding: 10px;
   font-size: 16px;
@@ -39,17 +50,44 @@ button {
   width: 100px;
   height: 100px;
   background-color: #1e88e5;
+  margin-top: 10px; /* Adds space between the input and button */
 }
 
-/* Positioning for Button 1 */
+/* Button Styling - Search by Name */
 #button1 {
   position: absolute;
-  top: 50px; /* Adjust this value to move the button vertically */
-  left: 50px; /* Adjust this value to move the button horizontally */
-  background-color: #fff; /* Optional: Different color for Button 1 */
+  top: 100px; /* Adjust this value to move it vertically */
+  left: 50px; /* Adjust this value to move it horizontally */
+  background-color: #fff;
+  width: 200px; /* Set the width of the button */
+  height: 80px; /* Set the height of the button */
+  color: black;
+  text-align: center;
+  line-height: 80px; /* Vertically center the text inside the button */
+  font-size: 18px; /* Adjust font size */
+  cursor: pointer;
+  border: none;
+  border-radius: 8px; /* Rounded corners */
 }
 
-/* Edit modal here */
+/* Button Styling - Catalogue */
+#button2 {
+  position: absolute;
+  top: 100px; /* Adjust this value to move it vertically */
+  right: 50px; /* Adjust this value to move it horizontally */
+  background-color: #fff;
+  width: 200px; /* Set the width of the button */
+  height: 80px; /* Set the height of the button */
+  color: black;
+  text-align: center;
+  line-height: 80px; /* Vertically center the text inside the button */
+  font-size: 18px; /* Adjust font size */
+  cursor: pointer;
+  border: none;
+  border-radius: 8px; /* Rounded corners */
+}
+
+/* Modal Styling */
 .modal {
   display: none; /* Hidden by default */
   position: fixed;
@@ -62,14 +100,19 @@ button {
   align-items: center;
 }
 
+/* Modal Content Styling */
 .modal-content {
   background-color: white;
   padding: 20px;
   border-radius: 8px;
-  width: 300px;
+  width: 470px;
   text-align: center;
+  position: relative; /* Keep this relative to the modal */
+  top: 20px; /* Move it a bit downward */
+  left: 200px; /* Move it slightly to the left */
 }
 
+/* Close Button for Modal */
 .close {
   color: #aaa;
   font-size: 28px;
@@ -86,12 +129,13 @@ button {
   cursor: pointer;
 }
 
-/* Pokemon Image Styles */
+/* Pokemon Image Styling in Modal */
 .modal-content img {
   max-width: 100%;
   height: auto;
 }
 
+/* Pokemon List Button Styling */
 .pokemonList button {
   background-color: #04aa6d; /* Green background */
   border: 1px solid green; /* Green border */
@@ -106,11 +150,12 @@ button {
   border-bottom: none; /* Prevent double borders */
 }
 
-/* Add a background color on hover */
+/* Button Hover Effects */
 .pokemonList button:hover {
   background-color: #3e8e41;
 }
 
+/* Pokemon Button Styling */
 .pokemon-button {
   margin: 5px;
   padding: 10px;
@@ -119,6 +164,7 @@ button {
   border-radius: 5px;
   cursor: pointer;
 }
+
 .pokemon-button:hover {
   background-color: #e0e0e0;
 }
