@@ -80,7 +80,6 @@ addPokemonForm.addEventListener("submit", (e) => {
 // Handle modal close when clicked outside the modal content
 pokemonDialog.addEventListener("click", (e) => {
   if (e.target === pokemonDialog) {
-
     pokemonDialog.close();
   }
 });
@@ -104,7 +103,6 @@ document.getElementById("prevPage").addEventListener("click", () => {
 fetchPokemonPage(currentPage);
 
 //code for fetching stats:
-//===========================================================================
 const getPokemonData = async (term) => {
   const url = "https://pokeapi.co/api/v2/pokemon";
   const response = await fetch(url);
@@ -126,12 +124,6 @@ const getPokemonData = async (term) => {
   ).innerHTML = `${pokemon.types[0].type.name} / ${pokemon.types[1].type.name}`;
   document.getElementById("update_weight").innerHTML = `${pokemon.weight}kg`;
   document.getElementById("update_height").innerHTML = `0.${pokemon.height}m`;
-  document.getElementById("update_stardust").innerHTML = Math.floor(
-    Math.random() * 10000 + 1
-  );
-  document.getElementById("update_candy").innerHTML = Math.floor(
-    Math.random() * 200 + 1
-  );
 };
 
 submitBtn.addEventListener("click", () => getPokemonData(search_term.value));

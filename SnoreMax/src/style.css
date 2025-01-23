@@ -1,6 +1,5 @@
 /* Body Styles */
 body {
-
   margin: 0; /* Removes default browser margins */
   background-image: url("pokedex.jpg"); /* Sets the background image */
   background-size: cover; /* Ensures the image covers the entire background */
@@ -40,7 +39,6 @@ body {
   border-radius: 8px; /* Rounds the corners of the input field */
 }
 
-
 /* Search Button Styles */
 #submitBtn {
   background-color: #1e88e5; /* Sets the button's background color */
@@ -69,7 +67,6 @@ body {
   top: 275px; /* Positions the list 300px from the top */
   right: 330px; /* Moves the list closer to the right edge */
 }
-
 
 /* Pokémon Button Styles */
 .pokemon-button {
@@ -157,8 +154,8 @@ dialog {
 }
 .pokemon-button:hover {
   background-color: #ac0f0f;
+}
 
 .pokemon-button:hover {
   background-color: #3e8e41;
-
 }
