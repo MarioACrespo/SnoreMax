@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokemon Fetch!</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Button 1: Search by Name -->
+      <button
+        class="button"
+        id="button1"
+        style="position: absolute; top: 50px; left: 50px"
+      >
+        Search by Name
+      </button>
+
+      <!-- Button 2: Show Pokémon List -->
+      <button
+        class="button"
+        id="button2"
+        style="position: absolute; top: 150px; left: 50px"
+      >
+        Show Pokémon List
+      </button>
+
+      <!-- Form for Searching Pokémon by Name -->
+      <form id="addPokemonForm" style="display: none">
+        <input
+          type="text"
+          id="pokemonName"
+          placeholder="Enter Pokémon name"
+          style="margin-bottom: 10px"
+        />
+        <button type="submit" id="submitBtn">Find Pokémon</button>
+      </form>
+
+      <!-- Modal for Displaying Pokémon Info -->
+      <div id="myModal" class="modal">
+        <div class="modal-content">
+          <span class="close" id="closeModal">&times;</span>
+          <h2 id="pokemonDisplay">Pokémon Name will appear here</h2>
+          <img id="pokemonImage" src="" alt="Pokémon Image" />
+        </div>
+      </div>
+
+      <!-- Pokémon List Display Section -->
+      <div id="pokemonList"></div>
+
+      <input type="text" id="pokemonName" />
+      <button type="submit" id="pokemonList">Get Pokemon</button>
+      <div id="pokemoninfo"></div>
+      <div id="root"></div>
+    </form>
+
+    <script src="pokemon.js"></script
+    </div>
+
+    <script>
+      const API_URL = "https://pokeapi.co/api/v2/pokemon";
+
+      // Elements
+      const button1 = document.getElementById("button1");
+      const button2 = document.getElementById("button2");
+      const form = document.getElementById("addPokemonForm");
+      const pokemonNameInput = document.getElementById("pokemonName");
+      const submitBtn = document.getElementById("submitBtn");
+      const modal = document.getElementById("myModal");
+      const closeModal = document.getElementById("closeModal");
+      const pokemonListContainer = document.getElementById("pokemonList");
+
+      // Button 1: Show Search Bar
+      button1.addEventListener("click", () => {
+        form.style.display = "flex"; // Show the form
+        button1.style.display = "none"; // Hide button 1
+      });
+
+      // Form Submit: Fetch Pokémon Data by Name
+      form.addEventListener("submit", (event) => {
+        event.preventDefault(); // Prevent form submission
+
+        const pokemonName = pokemonNameInput.value;
+
+        fetch(`${API_URL}/${pokemonName.toLowerCase()}`)
+          .then((response) => {
+            if (!response.ok) throw new Error("Pokémon not found");
+            return response.json();
+          })
+          .then((newPokemon) => {
+            // Show modal with Pokémon data
+            const pokemonDisplay = document.getElementById("pokemonDisplay");
+            const pokemonImage = document.getElementById("pokemonImage");
+
+            pokemonDisplay.textContent = newPokemon.name;
+            pokemonImage.src =
+              newPokemon.sprites.other.dream_world.front_default;
+
+            modal.style.display = "flex";
+          })
+          .catch(() => {
+            alert("Pokémon not found! Try again.");
+          });
+      });
+
+      // Button 2: Show Pokémon List (Pagination or List of Pokémon)
+      button2.addEventListener("click", () => {
+        fetchPokemons(); // Fetch the list of Pokémon
+      });
+
+      function fetchPokemons() {
+        // Fetch the list of Pokémon (first 10 for simplicity)
+        fetch(`${API_URL}?limit=10`)
+          .then((response) => response.json())
+          .then((data) => {
+            const pokemons = data.results;
+            pokemonListContainer.innerHTML = ""; // Clear existing list
+
+            // Display the Pokémon List
+            pokemons.forEach((pokemon) => {
+              const button = document.createElement("button");
+              button.textContent = pokemon.name;
+              button.classList.add("pokemon-button");
+              pokemonListContainer.appendChild(button);
+            });
+          })
+          .catch(() => {
+            alert("Failed to load Pokémon list.");
+          });
+      }
+
+      // Close Modal
+      closeModal.onclick = () => {
+        modal.style.display = "none"; // Hide the modal
+      };
+
+      window.onclick = (event) => {
+        if (event.target === modal) {
+          modal.style.display = "none"; // Hide the modal if clicked outside
+        }
+      };
+    </script>
+  </body>
+</html>

@@ -27,6 +27,8 @@
 
       <!-- Pokémon List (List of 10) -->
       <div id="pokemonList"></div>
+
+
       <!-- Container for displaying Pokémon list -->
 
       <!-- move Buttons -->
@@ -35,6 +37,7 @@
         <!-- Button for navigating to previous page of Pokémon -->
         <button id="nextPage">Next</button>
         <!-- Button for navigating to next page of Pokémon -->
+
       </div>
 
       <!-- Modal Dialog for displaying Pokémon information -->
@@ -43,7 +46,47 @@
           <h2 id="pokemonDisplay">Pokemon Name will appear here</h2>
           <!-- Heading to display Pokémon name -->
           <img id="pokemonImage" src="" alt="Pokemon Image" />
+
+          <!--Tutorial code-->
+          <hr class="seperator">
+          <div class="stats text-center">
+              <span class="first cp-text col-md-6" id="update_hp">HP 32/32</span>
+              <span class="cp-text col-md-6" id="update_cp">XP 149</span>
+          </div>
+      </div>
+      <!-- <button class="btn-transfer">TRANSFER</button> -->
+      <div class="attributes-container">
+          <div class="col attributes-content" style="min-width: 42%;">
+              <p class="cp-text" id="update_type">Electric / Speed</p>
+              <small class="text-muted">Type</small>
+          </div>
+          <div class="col attributes-content">
+            <p class="cp-text" id="update_weight">5.58kg</p>
+            <small class="text-muted">Weight</small>
+          </div>
+          <div class="col attributes-content">
+            <p class="cp-text no-border" id="update_height">0.82m</p>
+            <small class="text-muted">Height</small>
+          </div>
+      </div>
+      <div class="player-data">
+          <div class="col data-container">
+          <p class="stardust" id="update_stardust">500</p>
+          <p class="muted-text">Stardust</p>
+          </div>
+          <div class="col data-container">
+          <p class="stardust" id="update_candy">1</p>
+          <p class="muted-text" id="update_candy_title">Pikachu Candy</p>
+          </div>
+      </div>
+  </div>
+</div>
+</div>
+
+          <!--Tutorial code-->
+
           <!-- Image tag for displaying Pokémon image -->
+
         </div>
       </dialog>
     </div>
