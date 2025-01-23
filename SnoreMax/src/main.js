@@ -1,103 +1,139 @@
-const API_URL = "https://pokeapi.co/api/v2/pokemon";
-const pokemonList = document.getElementById("pokemonList"); // Retrieves Pokémon list container element
-const pokemonNameInput = document.getElementById("pokemonName"); // Retrieves Pokémon name input element
-const addPokemonForm = document.getElementById("addPokemonForm"); // Retrieves Pokémon search form element
-const pokemonDialog = document.getElementById("pokemonDialog"); // Retrieves Pokémon modal dialog element
-const pokemonDisplay = document.getElementById("pokemonDisplay"); // Retrieves element to display Pokémon name
-const pokemonImage = document.getElementById("pokemonImage"); // Retrieves element to display Pokémon image
-
-let currentPage = 0; // Variable to track current page of Pokémon list
-const pokemonPerPage = 5; // Number of Pokémon to display per page
-let totalPokemonCount = 0; // Total number of Pokémon available in the API
-
-// Fetch Pokémon list based on page and limit
-async function fetchPokemonPage(page = 0) {
-  const offset = page * pokemonPerPage; // Calculates offset based on current page
-  try {
-    const response = await fetch(
-      `${API_URL}?limit=${pokemonPerPage}&offset=${offset}`
-    ); // Fetches Pokémon data from API based on limit and offset
-    if (!response.ok) {
-      throw new Error(`Failed to fetch Pokémon data: ${response.statusText}`);
-    }
-    const data = await response.json(); // Parses response JSON data
-    totalPokemonCount = data.count; // Retrieves total number of Pokémon from API
-    renderPokemonList(data.results); // Renders Pokémon list on the webpage
-  } catch (error) {
-    console.error("Error:", error.message); // Logs error message if fetching data fails
-  }
+// Function to convert height from meters to feet and inches
+function convertHeightToFeetInches(heightInMeters) {
+  const heightInInches = heightInMeters * 39.3701; // Convert meters to inches
+  const feet = Math.floor(heightInInches / 12); // Convert inches to feet
+  const inches = Math.round(heightInInches % 12); // Remaining inches
+  return { feet, inches };
 }
 
-// Render Pokémon list to the DOM
-function renderPokemonList(pokemonArray) {
-  pokemonList.innerHTML = ""; // Clears existing Pokémon list
-  pokemonArray.forEach((pokemon) => {
-    const pokemonButton = document.createElement("button"); // Creates button element for each Pokémon
-    pokemonButton.textContent =
-      pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1); // Capitalizes Pokémon names
-    pokemonButton.className = "pokemon-button"; // Sets class for styling
-    pokemonButton.addEventListener("click", () => {
-      pokemonNameInput.value = pokemon.name; // Sets Pokémon name in search input
-      displayPokemonCard(pokemon.name); // Displays Pokémon details in modal
+// Function to convert weight from kilograms to pounds
+function convertWeightToPounds(weightInKilograms) {
+  return weightInKilograms * 2.20462; // Convert kilograms to pounds
+}
+
+// Function to show Pokémon details in the modal
+function showPokemonDetails(pokemonData) {
+  const modal = document.getElementById("pokemonDialog");
+
+  // Update Pokémon name
+  const pokemonName = pokemonData.name;
+  document.getElementById("pokemonDisplay").textContent = pokemonName;
+
+  // Update Pokémon image
+  const pokemonImage = document.getElementById("pokemonImage");
+  pokemonImage.src = pokemonData.sprites.front_default;
+
+  // Convert height and weight
+  const heightInMeters = pokemonData.height / 10; // Height in meters (from decimeters)
+  const weightInKilograms = pokemonData.weight / 10; // Weight in kilograms (from hectograms)
+
+  const { feet, inches } = convertHeightToFeetInches(heightInMeters); // Get height in feet and inches
+  const weightInPounds = convertWeightToPounds(weightInKilograms); // Get weight in pounds
+
+  // Update height and weight in the modal
+  document.getElementById(
+    "pokemonHeight"
+  ).textContent = `Height: ${feet}' ${inches}"`; // Display height in feet and inches
+  document.getElementById(
+    "pokemonWeight"
+  ).textContent = `Weight: ${weightInPounds.toFixed(2)} lbs`; // Display weight in pounds
+
+  // Update types
+  const types = pokemonData.types
+    .map((typeInfo) => typeInfo.type.name)
+    .join(", ");
+  document.getElementById("pokemonTypes").textContent = `Types: ${types}`;
+
+  // Open the modal
+  modal.showModal();
+}
+
+// Function to create a list of Pokémon with clickable images
+function createPokemonList(pokemonList) {
+  const pokemonListContainer = document.getElementById("pokemonList");
+  pokemonListContainer.innerHTML = ""; // Clear the list before adding new Pokémon
+
+  pokemonList.forEach((pokemon) => {
+    const pokemonItem = document.createElement("div");
+    pokemonItem.classList.add("pokemon-item");
+
+    const pokemonImage = document.createElement("img");
+    pokemonImage.src = pokemon.sprites.front_default;
+    pokemonImage.alt = pokemon.name;
+    pokemonImage.classList.add("pokemon-image");
+
+    pokemonImage.addEventListener("click", () => {
+      fetchPokemon(pokemon.name);
     });
-    pokemonList.appendChild(pokemonButton); // Appends Pokémon button to the list container
+
+    pokemonItem.appendChild(pokemonImage);
+    pokemonListContainer.appendChild(pokemonItem);
   });
 }
 
-// Display Pokémon details in the modal (using <dialog>)
-async function displayPokemonCard(pokemonName) {
-  try {
-    const response = await fetch(`${API_URL}/${pokemonName}`); // Fetches Pokémon details by name
-    if (!response.ok) {
-      throw new Error(`Failed to fetch Pokémon data: ${response.statusText}`);
-    }
-    const pokemon = await response.json(); // Parses fetched Pokémon data
-    pokemonDisplay.textContent =
-      pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1); // Capitalizes Pokémon name
-    pokemonImage.src =
-      pokemon.sprites.other.dream_world.front_default ||
-      pokemon.sprites.front_default; // Sets Pokémon image URL
-
-    pokemonDialog.showModal(); // Displays modal with Pokémon details
-  } catch (error) {
-    alert("Pokémon not found. Please try again."); // Shows alert if Pokémon data fetch fails
-    console.error("Error:", error.message); // Logs error message
-  }
+// Function to fetch Pokémon data from the API
+function fetchPokemon(pokemonName) {
+  fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
+    .then((response) => response.json())
+    .then((pokemonData) => {
+      showPokemonDetails(pokemonData);
+    })
+    .catch((error) => {
+      console.error("Error fetching Pokémon data:", error);
+    });
 }
 
-// Handle the form submission for searching a Pokémon by name and showing a modal
-addPokemonForm.addEventListener("submit", (e) => {
-  e.preventDefault(); // Prevents default form submission
-  const pokemonName = pokemonNameInput.value.trim(); // Retrieves and trims Pokémon name input
-  if (pokemonName) {
-    displayPokemonCard(pokemonName); // Displays Pokémon details for the searched name in modal
-    pokemonNameInput.value = ""; // Clears input field after submission
-  } else {
-    alert("Please enter a Pokémon name!"); // Alerts user if input is empty
-  }
-});
+// Function to fetch a list of Pokémon (for example, first 10 Pokémon)
+function fetchPokemonList(page = 1) {
+  fetch(`https://pokeapi.co/api/v2/pokemon?limit=10&offset=${(page - 1) * 10}`)
+    .then((response) => response.json())
+    .then((data) => {
+      const pokemonList = data.results;
+      const pokemonDetailsPromises = pokemonList.map((pokemon) =>
+        fetch(pokemon.url).then((response) => response.json())
+      );
 
-// Handle modal close when clicked outside the modal content
-pokemonDialog.addEventListener("click", (e) => {
-  if (e.target === pokemonDialog) {
-    pokemonDialog.close(); // Closes modal when clicking outside of its content
-  }
-});
+      Promise.all(pokemonDetailsPromises).then((pokemonDetails) => {
+        createPokemonList(pokemonDetails);
+      });
+    })
+    .catch((error) => {
+      console.error("Error fetching Pokémon list:", error);
+    });
+}
 
-// Pagination controls
+// Event listener for the form submission
+document
+  .getElementById("addPokemonForm")
+  .addEventListener("submit", function (event) {
+    event.preventDefault();
+    const pokemonName = document
+      .getElementById("pokemonName")
+      .value.toLowerCase();
+    fetchPokemon(pokemonName);
+  });
+
+// Event listeners for the pagination buttons
+let currentPage = 1;
+
 document.getElementById("nextPage").addEventListener("click", () => {
-  if ((currentPage + 1) * pokemonPerPage < totalPokemonCount) {
-    currentPage++;
-    fetchPokemonPage(currentPage); // Fetches next page of Pokémon list
-  }
+  currentPage++;
+  fetchPokemonList(currentPage);
 });
 
 document.getElementById("prevPage").addEventListener("click", () => {
-  if (currentPage > 0) {
+  if (currentPage > 1) {
     currentPage--;
-    fetchPokemonPage(currentPage); // Fetches previous page of Pokémon list
+    fetchPokemonList(currentPage);
   }
 });
 
-// Initial fetch and display of 10 Pokémon
-fetchPokemonPage(currentPage); // Fetches initial Pokémon list upon page load
+// Close modal when clicking outside the modal content
+document.querySelector("dialog").addEventListener("click", (event) => {
+  if (event.target === document.querySelector("dialog")) {
+    document.querySelector("dialog").close();
+  }
+});
+
+// Fetch the initial list of Pokémon when the page loads
+fetchPokemonList();
