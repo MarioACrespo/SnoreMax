@@ -2,9 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!-- Sets the character encoding for the document -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Defines the viewport for responsive design -->
     <title>Pokemon Fetch!</title>
+    <!-- Sets the title of the webpage -->
     <link rel="stylesheet" href="src/style.css" />
+    <!-- Links an external CSS file for styling -->
   </head>
   <body>
     <div class="container">
@@ -16,23 +20,33 @@
           placeholder="Enter Pokemon name"
           style="margin-bottom: 10px"
         />
+        <!-- Text input field to enter Pokémon name -->
         <button type="submit" id="submitBtn">Find Pokemon</button>
+        <!-- Submit button for searching Pokémon -->
       </form>
 
       <!-- Pokémon List (List of 10) -->
       <div id="pokemonList"></div>
 
-      <!-- Pagination Buttons -->
-      <div id="pagination">
+
+      <!-- Container for displaying Pokémon list -->
+
+      <!-- move Buttons -->
+      <div id="movebutton">
         <button id="prevPage">Back</button>
+        <!-- Button for navigating to previous page of Pokémon -->
         <button id="nextPage">Next</button>
+        <!-- Button for navigating to next page of Pokémon -->
+
       </div>
 
       <!-- Modal Dialog for displaying Pokémon information -->
       <dialog id="pokemonDialog">
         <div class="modal-content">
           <h2 id="pokemonDisplay">Pokemon Name will appear here</h2>
+          <!-- Heading to display Pokémon name -->
           <img id="pokemonImage" src="" alt="Pokemon Image" />
+
           <!--Tutorial code-->
           <hr class="seperator">
           <div class="stats text-center">
@@ -70,10 +84,14 @@
 </div>
 
           <!--Tutorial code-->
+
+          <!-- Image tag for displaying Pokémon image -->
+
         </div>
       </dialog>
     </div>
 
     <script src="src/main.js"></script>
+    <!-- Links an external JavaScript file -->
   </body>
 </html>
