@@ -1,53 +1,102 @@
 const API_URL = "https://pokeapi.co/api/v2/pokemon";
-
-// Elements
-const button1 = document.getElementById("button1");
-const button2 = document.getElementById("button2");
-const form = document.getElementById("addPokemonForm");
+const pokemonList = document.getElementById("pokemonList");
 const pokemonNameInput = document.getElementById("pokemonName");
-const submitBtn = document.getElementById("submitBtn");
-const modal = document.getElementById("myModal");
-const closeModal = document.getElementById("closeModal");
+const addPokemonForm = document.getElementById("addPokemonForm");
+const pokemonDialog = document.getElementById("pokemonDialog");
+const pokemonDisplay = document.getElementById("pokemonDisplay");
+const pokemonImage = document.getElementById("pokemonImage");
 
-// Button 1: Show Search Bar and Find Pokemon Button
-button1.addEventListener("click", () => {
-  form.style.display = "flex"; // Show the form
-  button1.style.display = "none"; // Hide button 1
-});
+let currentPage = 0;
+const pokemonPerPage = 10;
+let totalPokemonCount = 0;
 
-// Form Submit: Fetch Pokemon Data
-form.addEventListener("submit", (event) => {
-  event.preventDefault(); // Prevent form submission
-
-  const pokemonName = pokemonNameInput.value;
-
-  fetch(`${API_URL}/${pokemonName.toLowerCase()}`)
-    .then((response) => {
-      if (!response.ok) throw new Error("Pokemon not found");
-      return response.json();
-    })
-    .then((newPokemon) => {
-      // Show modal with Pokemon data
-      const pokemonDisplay = document.getElementById("pokemonDisplay");
-      const pokemonImage = document.getElementById("pokemonImage");
-
-      pokemonDisplay.textContent = newPokemon.name;
-      pokemonImage.src = newPokemon.sprites.other.dream_world.front_default;
-
-      modal.style.display = "flex";
-    })
-    .catch(() => {
-      alert("Pokemon not found! Try again.");
-    });
-});
-
-// Close Modal
-closeModal.onclick = () => {
-  modal.style.display = "none"; // Hide the modal
-};
-
-window.onclick = (event) => {
-  if (event.target === modal) {
-    modal.style.display = "none"; // Hide the modal
+// Fetch Pokémon list based on page and limit
+async function fetchPokemonPage(page = 0) {
+  const offset = page * pokemonPerPage;
+  try {
+    const response = await fetch(
+      `${API_URL}?limit=${pokemonPerPage}&offset=${offset}`
+    );
+    if (!response.ok) {
+      throw new Error(`Failed to fetch Pokémon data: ${response.statusText}`);
+    }
+    const data = await response.json();
+    totalPokemonCount = data.count; // Total number of Pokémon in the API
+    renderPokemonList(data.results);
+  } catch (error) {
+    console.error("Error:", error.message);
   }
-};
+}
+
+// Render Pokémon list to the DOM
+function renderPokemonList(pokemonArray) {
+  pokemonList.innerHTML = ""; // Clear existing list
+  pokemonArray.forEach((pokemon) => {
+    const pokemonButton = document.createElement("button");
+    pokemonButton.textContent =
+      pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1); // Capitalize first letter
+    pokemonButton.className = "pokemon-button";
+    pokemonButton.addEventListener("click", () => {
+      displayPokemonCard(pokemon.name); // Show the modal with details
+    });
+    pokemonList.appendChild(pokemonButton);
+  });
+}
+
+// Display Pokémon details in the modal
+async function displayPokemonCard(pokemonName) {
+  try {
+    const response = await fetch(`${API_URL}/${pokemonName}`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch Pokémon data: ${response.statusText}`);
+    }
+    const pokemon = await response.json();
+
+    // Fill the modal with the fetched Pokémon's details
+    pokemonDisplay.textContent =
+      pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1); // Capitalize first letter
+    pokemonImage.src =
+      pokemon.sprites.other.dream_world.front_default ||
+      pokemon.sprites.front_default;
+
+    // Open the modal dialog
+    pokemonDialog.showModal();
+  } catch (error) {
+    alert("Pokémon not found. Please try again.");
+    console.error("Error:", error.message);
+  }
+}
+
+// Handle the form submission for searching a Pokémon by name
+addPokemonForm.addEventListener("submit", (e) => {
+  e.preventDefault(); // Prevent page reload
+  const pokemonName = pokemonNameInput.value.trim();
+  if (pokemonName) {
+    displayPokemonCard(pokemonName); // Display searched Pokémon's details
+  }
+});
+
+// Handle modal close when clicked outside the modal content
+pokemonDialog.addEventListener("click", (e) => {
+  if (e.target === pokemonDialog) {
+    pokemonDialog.close();
+  }
+});
+
+// Pagination controls
+document.getElementById("nextPage").addEventListener("click", () => {
+  if ((currentPage + 1) * pokemonPerPage < totalPokemonCount) {
+    currentPage++;
+    fetchPokemonPage(currentPage);
+  }
+});
+
+document.getElementById("prevPage").addEventListener("click", () => {
+  if (currentPage > 0) {
+    currentPage--;
+    fetchPokemonPage(currentPage);
+  }
+});
+
+// Initial fetch and display of 10 Pokémon
+fetchPokemonPage(currentPage);

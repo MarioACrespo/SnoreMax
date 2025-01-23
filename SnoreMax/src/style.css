@@ -14,30 +14,9 @@ body {
   position: relative;
 }
 
-/* Button Styling r*/
-.button {
-  position: absolute;
-  background-color: #fff;
-  width: 200px;
-  height: 80px;
-  color: black;
-  text-align: center;
-  line-height: 80px; /* Vertically center the text inside the button */
-  font-size: 18px;
-  cursor: pointer;
-  border: none;
-  border-radius: 8px;
-}
-
-/* Button 2 (Show Pokémon List) */
-#button2 {
-  top: 150px; /* Positioned below button 1 */
-  left: 50px;
-}
-
-/* Form Styling */
+/* Form Styles */
 #addPokemonForm {
-  display: none;
+  display: block;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -49,7 +28,6 @@ body {
   transform: translateX(-50%);
 }
 
-/* Input Field Styling */
 #pokemonName {
   width: 90%;
   padding: 10px;
@@ -59,49 +37,7 @@ body {
   border-radius: 8px;
 }
 
-/* Submit Button Styling */
-#submitBtn {
-  border-radius: 100%;
-  padding: 10px;
-  font-size: 16px;
-  cursor: pointer;
-  width: 100px;
-  height: 100px;
-  background-color: #1e88e5;
-  margin-top: 10px;
-}
-
-/* Modal Styling */
-.modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-content {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  text-align: center;
-  width: 400px;
-}
-
-.close {
-  color: #aaa;
-  font-size: 28px;
-  font-weight: bold;
-  position: absolute;
-  top: 10px;
-  right: 20px;
-}
-
-/* Pokémon List Styling */
+/* Pokémon List Styles */
 #pokemonList {
   margin-top: 30px;
   display: flex;
@@ -109,7 +45,6 @@ body {
   gap: 10px;
 }
 
-/* Pokémon Button Styling */
 .pokemon-button {
   background-color: #04aa6d;
   border: 1px solid green;
@@ -120,78 +55,61 @@ body {
   border-radius: 8px;
 }
 
-/* Close Button for Modal*/
-
-#root {
+/* Pagination Styles */
+#pagination {
   display: flex;
-  flex-direction: row;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
 }
 
-img {
-  display: flex;
-  align-self: center;
-  height: 100px;
-  width: 170px;
-  margin: 3px;
-  opacity: 1;
-  object-fit: contain;
-  border-style: solid;
-  border-color: black;
-  background-color: white;
-}
-
-.card {
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  border-radius: 5%;
-  border-width: 5px;
-  border-style: solid;
-  border-color: black;
-  margin: 10px;
-  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.4);
-  width: 180px;
-  height: 300px;
-}
-
-h1 {
-  display: flex;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  align-self: center;
-}
-
-.pokemoninfo-button {
-  background-color: #04aa6d;
-  border: 1px solid green;
+#pagination button {
+  background-color: #1e88e5;
   color: white;
-  padding: 10px 24px;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
   cursor: pointer;
-  width: 50%;
-  display: block;
+  border-radius: 8px;
 }
 
-.pokemoninfo-button:not(:last-child) {
-  border-bottom: none;
+#pagination button:hover {
+  background-color: #0b6ab8;
 }
 
-/*Add a background color on hover*/
-.pokemoninfo-button:hover {
-  background-color: #3e8e41;
+/* Modal Styles */
+dialog {
+  display: none; /* Hidden by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Darkens the background */
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  z-index: 1000; /* Ensures the modal is on top */
 }
 
-.pokemon-button {
-  margin: 5px;
-  padding: 10px;
-  background-color: #f2f2f2;
-  border: 1px solid #f70808;
-  border-radius: 5px;
-  cursor: pointer;
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  position: relative;
+  width: 400px;
+  text-align: center;
 }
-.pokemon-button:hover {
-  background-color: #ac0f0f;
 
-.pokemon-button:hover {
-  background-color: #3e8e41;
+/* Pokémon Image Styling */
+#pokemonImage {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+}
 
+/* Pokémon Display Styling */
+h2 {
+  font-family: sans-serif;
+  margin-bottom: 10px;
 }

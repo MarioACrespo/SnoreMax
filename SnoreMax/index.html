@@ -8,26 +8,8 @@
   </head>
   <body>
     <div class="container">
-      <!-- Button 1: Search by Name -->
-      <button
-        class="button"
-        id="button1"
-        style="position: absolute; top: 50px; left: 50px"
-      >
-        Search by Name
-      </button>
-
-      <!-- Button 2: Catalogue -->
-      <button
-        class="button"
-        id="button2"
-        style="position: absolute; top: 50px; right: 50px"
-      >
-        Catalogue
-      </button>
-
-      <!-- Form with Search Bar and Find Pokemon Button (Initially Hidden) -->
-      <form id="addPokemonForm" style="display: none">
+      <!-- Form to Find Pokémon by Name -->
+      <form id="addPokemonForm">
         <input
           type="text"
           id="pokemonName"
@@ -37,28 +19,23 @@
         <button type="submit" id="submitBtn">Find Pokemon</button>
       </form>
 
-      <!-- Modal -->
-      <div id="myModal" class="modal">
+      <!-- Pokémon List (List of 10) -->
+      <div id="pokemonList"></div>
+
+      <!-- Pagination Buttons -->
+      <div id="pagination">
+        <button id="prevPage">Back</button>
+        <button id="nextPage">Next</button>
+      </div>
+
+      <!-- Modal Dialog for displaying Pokémon information -->
+      <dialog id="pokemonDialog">
         <div class="modal-content">
-          <span class="close" id="closeModal">&times;</span>
           <h2 id="pokemonDisplay">Pokemon Name will appear here</h2>
           <img id="pokemonImage" src="" alt="Pokemon Image" />
         </div>
-      </div>
+      </dialog>
     </div>
-
-    <!-- Pokémon Form and List Section -->
-    <!-- <form id="PokemonForm">
-      <h1>Pokémon</h1>
-      <button id="listPokemonButton">List Pokémon</button>
-      <div id="pokemonList"></div>
-      <input type="text" id="pokemonName" />
-      <button type="submit" id="pokemonList">Get Pokemon</button>
-      <div id="pokemoninfo"></div>
-      <div id="root"></div>
-    </form> -->
-
-    <!-- <script src="src/pokemon.js"></script> -->
 
     <script src="src/main.js"></script>
   </body>
