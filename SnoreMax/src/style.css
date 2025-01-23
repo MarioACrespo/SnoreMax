@@ -1,5 +1,6 @@
 /* Body Styles */
 body {
+
   margin: 0; /* Removes default browser margins */
   background-image: url("pokedex.jpg"); /* Sets the background image */
   background-size: cover; /* Ensures the image covers the entire background */
@@ -29,6 +30,7 @@ body {
 }
 
 /* Input Field Styles */
+
 #pokemonName {
   width: 90%; /* Sets the input field width to 90% of its parent */
   padding: 10px; /* Adds padding inside the input field */
@@ -37,6 +39,7 @@ body {
   border: 2px solid #fff; /* Adds a white border */
   border-radius: 8px; /* Rounds the corners of the input field */
 }
+
 
 /* Search Button Styles */
 #submitBtn {
@@ -55,6 +58,7 @@ body {
 
 /* Pokémon List - Move list and buttons to the right */
 /* Pokémon List - Move list and buttons to the right */
+
 #pokemonList {
   margin-top: 30px; /* Adds space above the list */
   display: flex; /* Sets the layout as a flex container */
@@ -65,6 +69,7 @@ body {
   top: 275px; /* Positions the list 300px from the top */
   right: 330px; /* Moves the list closer to the right edge */
 }
+
 
 /* Pokémon Button Styles */
 .pokemon-button {
@@ -152,6 +157,7 @@ dialog {
 
 dialog[open] {
   display: block; /* Displays dialog when 'open' attribute is added */
+
 }
 
 /*...............................................................*/
