@@ -96,7 +96,7 @@ body {
   gap: 33px; /* Adds space between the buttons */
   margin-top: 20px; /* Adds space above the buttons */
   position: absolute; /* Allows precise positioning */
-  top: 600px; /* Positions the buttons 450px from the top */
+  top: 605px; /* Positions the buttons 450px from the top */
   right: 275px; /* Moves the buttons closer to the right edge */
 }
 
@@ -138,8 +138,11 @@ dialog {
   padding: 20px; /* Adds padding inside the modal */
   border-radius: 8px; /* Rounds the corners of the modal */
   position: relative; /* Allows child elements to be positioned relative to the modal */
-  width: 400px; /* Sets the width of the modal content */
+  width: 500px; /* Sets the width of the modal content */
+  height: 500px;
   text-align: center; /* Centers text inside the modal */
+  left: 46%;
+  top: 16%;
 }
 
 /* Pokémon Image Styling */
