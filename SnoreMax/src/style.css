@@ -14,7 +14,7 @@ body {
   position: relative; /* Makes positioning relative to the body */
 }
 
-/* Form Styles - Move search form to the left */
+/* Form Styles - Move search form */
 #addPokemonForm {
   display: flex; /* Sets the layout as a flex container */
   flex-direction: column; /* Arranges items in a column */
@@ -22,7 +22,7 @@ body {
   justify-content: center; /* Centers items vertically */
   gap: 20px; /* Adds space between items */
   position: absolute; /* Allows precise positioning */
-  top: 300px; /* Positions the form 300px from the top */
+  top: 350px; /* Positions the form 350px from the top */
   left: 10%; /* Moves the form closer to the left edge */
   transform: none; /* Removes horizontal centering transformation */
   width: 480px; /* Sets the width of the form */
@@ -36,24 +36,34 @@ body {
   text-align: center; /* Centers text within the input */
   border: 2px solid #fff; /* Adds a white border */
   border-radius: 8px; /* Rounds the corners of the input field */
+  position: absolute; /* Allows precise positioning */
+  top: -180px; /* Positions the input field 50px from the top */
+  left: 150%; /* Positions the input horizontally at the center */
+  transform: translateX(-50%); /* Centers the input field horizontally */
 }
 
 /* Search Button Styles */
 #submitBtn {
   background-color: #1e88e5; /* Sets the button's background color */
+  border-radius: 10%;
   color: white; /* Sets the text color to white */
   border: none; /* Removes the border */
   padding: 12px 24px; /* Adds padding around the button text */
+  width: 135px;
   font-size: 16px; /* Sets the font size for the button */
+  font-weight: bold;
   cursor: pointer; /* Changes the cursor to a pointer on hover */
   border-radius: 8px; /* Rounds the corners of the button */
+  position: absolute; /* Allows precise positioning */
+  top: 50px; /* Positions the button 150px from the top */
+  left: 38%; /* Positions the button horizontally at the center */
+  transform: translateX(-50%); /* Centers the button horizontally */
 }
 
 #submitBtn:hover {
   background-color: #0b6ab8; /* Changes the background color on hover */
 }
 
-/* Pokémon List - Move list and buttons to the right */
 /* Pokémon List - Move list and buttons to the right */
 #pokemonList {
   margin-top: 30px; /* Adds space above the list */
@@ -62,7 +72,7 @@ body {
   gap: 10px; /* Adds space between list items */
   align-items: flex-start; /* Aligns list items to the left */
   position: absolute; /* Allows precise positioning */
-  top: 275px; /* Positions the list 300px from the top */
+  top: 275px; /* Positions the list 275px from the top */
   right: 330px; /* Moves the list closer to the right edge */
 }
 
