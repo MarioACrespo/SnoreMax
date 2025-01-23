@@ -100,3 +100,37 @@ document.getElementById("prevPage").addEventListener("click", () => {
 
 // Initial fetch and display of 10 Pokémon
 fetchPokemonPage(currentPage);
+
+//code for fetching stats:
+//===========================================================================
+const getPokemonData = async (term) => {
+  const url = "https://pokeapi.co/api/v2/pokemon";
+  const response = await fetch(url);
+
+  // update ui with data
+
+  //document.getElementById("pokemonDisplay").innerHTML = pokemon.name;
+  document.getElementById(
+    "update_candy_title"
+  ).innerHTML = `${pokemon.name} Candy`;
+  document.getElementById("update_hp").innerHTML = `HP ${Math.floor(
+    Math.random() * pokemon.stats[0].base_stat + 1
+  )}/${pokemon.stats[0].base_stat}`;
+  document.getElementById(
+    "update_cp"
+  ).innerHTML = `XP ${pokemon.base_experience}`;
+  document.getElementById(
+    "update_type"
+  ).innerHTML = `${pokemon.types[0].type.name} / ${pokemon.types[1].type.name}`;
+  document.getElementById("update_weight").innerHTML = `${pokemon.weight}kg`;
+  document.getElementById("update_height").innerHTML = `0.${pokemon.height}m`;
+  document.getElementById("update_stardust").innerHTML = Math.floor(
+    Math.random() * 10000 + 1
+  );
+  document.getElementById("update_candy").innerHTML = Math.floor(
+    Math.random() * 200 + 1
+  );
+};
+
+submitBtn.addEventListener("click", () => getPokemonData(search_term.value));
+//
