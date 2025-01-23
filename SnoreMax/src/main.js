@@ -149,5 +149,7 @@ const getPokemonData = async (pokemonName) => {
   // );
 };
 
-submitBtn.addEventListener("click", () => getPokemonData(pokemonName.value));
+submitBtn.addEventListener("click", () =>
+  getPokemonData(pokemonName.abilities)
+);
 //
