@@ -80,7 +80,6 @@ addPokemonForm.addEventListener("submit", (e) => {
 // Handle modal close when clicked outside the modal content
 pokemonDialog.addEventListener("click", (e) => {
   if (e.target === pokemonDialog) {
-
     pokemonDialog.close();
   }
 });
@@ -103,36 +102,52 @@ document.getElementById("prevPage").addEventListener("click", () => {
 // Initial fetch and display of 10 Pokémon
 fetchPokemonPage(currentPage);
 
-//code for fetching stats:
+//
+// code for fetching stats:
 //===========================================================================
-const getPokemonData = async (term) => {
-  const url = "https://pokeapi.co/api/v2/pokemon";
-  const response = await fetch(url);
+const getPokemonData = async (pokemonName) => {
+  //const pokemonName = document.getElementById("submitBtn").value;
 
+  const API_URL = `https://pokeapi.co/api/v2/pokemon/${pokemonName}`;
+  const response = await fetch(API_URL);
+  document.getElementById("show_error").classList.remove("show");
+  document.getElementById("show_error").classList.add("hidden");
+
+  if (response.status == 404 || response.statusText == "Not Found") {
+    document.getElementById("show_error").classList.add("show");
+    document.getElementById("show_error").classList.remove("hidden");
+    return;
+  }
+
+  const pokemon = await response.json();
+  debugger;
   // update ui with data
 
   //document.getElementById("pokemonDisplay").innerHTML = pokemon.name;
-  document.getElementById(
-    "update_candy_title"
-  ).innerHTML = `${pokemon.name} Candy`;
-  document.getElementById("update_hp").innerHTML = `HP ${Math.floor(
-    Math.random() * pokemon.stats[0].base_stat + 1
-  )}/${pokemon.stats[0].base_stat}`;
-  document.getElementById(
-    "update_cp"
-  ).innerHTML = `XP ${pokemon.base_experience}`;
-  document.getElementById(
-    "update_type"
-  ).innerHTML = `${pokemon.types[0].type.name} / ${pokemon.types[1].type.name}`;
+  //document.getElementById(
+  // "update_candy_title"
+  //).innerHTML = `${pokemon.name} Candy`;
+  document.getElementById("update_hp").innerHTML = `HP ${
+    Math.floor(Math.random() * pokemon.stats[0].base_stat) + 1
+  }/${pokemon.stats[0].base_stat}`;
+  //document.getElementById(
+  //  "update_cp"
+  //).innerHTML = `XP ${pokemon.base_experience}`;
+  const types = pokemon.types.map((t) => t.type.name).join(" / ");
+  document.getElementById("update_type").innerHTML = types;
+
+  //document.getElementById(
+  // "update_type"
+  //).innerHTML = `${pokemon.types[0].type.name} / ${pokemon.types[1].type.name}`;
   document.getElementById("update_weight").innerHTML = `${pokemon.weight}kg`;
   document.getElementById("update_height").innerHTML = `0.${pokemon.height}m`;
-  document.getElementById("update_stardust").innerHTML = Math.floor(
-    Math.random() * 10000 + 1
-  );
-  document.getElementById("update_candy").innerHTML = Math.floor(
-    Math.random() * 200 + 1
-  );
+  // document.getElementById("update_stardust").innerHTML = Math.floor(
+  // Math.random() * 10000 + 1
+  //);
+  //document.getElementById("update_candy").innerHTML = Math.floor(
+  //  Math.random() * 200 + 1
+  // );
 };
 
-submitBtn.addEventListener("click", () => getPokemonData(search_term.value));
+submitBtn.addEventListener("click", () => getPokemonData(pokemonName.value));
 //
