@@ -3,47 +3,41 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pokemon Fetch!</title>
-    <link rel="stylesheet" href="src/style.css" />
+    <title>Pokémon Browser</title>
+    <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
-    <div class="container">
-      <!-- Form to Find Pokémon by Name -->
+    <header>
+      <h1>Pokémon Browser</h1>
       <form id="addPokemonForm">
         <input
           type="text"
           id="pokemonName"
-          placeholder="Enter Pokemon name"
-          style="margin-bottom: 10px"
+          placeholder="Search Pokémon by name"
+          required
         />
-        <button type="submit" id="submitBtn">Find Pokemon</button>
+        <button type="submit">Search</button>
       </form>
+    </header>
 
-      <!-- Pokémon List (List of 10) -->
-      <div id="pokemonList"></div>
-
-      <!-- move Buttons -->
-      <div id="movebutton">
-        <button id="prevPage">Back</button>
+    <main>
+      <div id="pokemonList" class="pokemon-list"></div>
+      <div class="pagination">
+        <button id="prevPage">Previous</button>
         <button id="nextPage">Next</button>
       </div>
+    </main>
 
-      <!-- Modal Dialog for displaying Pokémon information -->
-      <dialog id="pokemonDialog">
-        <div class="modal-content">
-          <h2 id="pokemonDisplay">Pokemon Name will appear here</h2>
-          <img id="pokemonImage" src="" alt="Pokemon Image" />
-          <div class="pokemon-info">
-            <div class="height-weight">
-              <span id="pokemonHeight">Height: --</span>
-              <span id="pokemonWeight">Weight: --</span>
-            </div>
-            <div id="pokemonTypes">Types: --</div>
-          </div>
-        </div>
-      </dialog>
-    </div>
+    <dialog id="pokemonDialog" class="pokemon-modal">
+      <div class="modal-content">
+        <h2 id="pokemonDisplay"></h2>
+        <img id="pokemonImage" alt="Pokémon image" />
+        <p id="pokemonHeight"></p>
+        <p id="pokemonWeight"></p>
+        <p id="pokemonTypes"></p>
+      </div>
+    </dialog>
 
-    <script src="src/main.js"></script>
+    <script src="/src/main.js"></script>
   </body>
 </html>
