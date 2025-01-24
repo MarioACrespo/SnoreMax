@@ -2,29 +2,29 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <!-- Sets the character encoding for the document -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Defines the viewport for responsive design -->
-    <title>Pokemon Fetch!</title>
-    <!-- Sets the title of the webpage -->
-    <link rel="stylesheet" href="src/style.css" />
-    <!-- Links an external CSS file for styling -->
+    <title>Pokémon Browser</title>
+    <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
-    <div class="container">
-      <!-- Form to Find Pokémon by Name -->
+    <header>
+      <h1>Pokémon Browser</h1>
       <form id="addPokemonForm">
         <input
           type="text"
           id="pokemonName"
-          placeholder="Enter Pokemon name"
-          style="margin-bottom: 10px"
+          placeholder="Search Pokémon by name"
+          required
         />
-        <!-- Text input field to enter Pokémon name -->
-        <button type="submit" id="submitBtn">Find Pokemon</button>
-        <!-- Submit button for searching Pokémon -->
+        <button type="submit">Search</button>
       </form>
+    </header>
 
+    <main>
+      <div id="pokemonList" class="pokemon-list"></div>
+      <div class="pagination">
+        <button id="prevPage">Previous</button>
+        <button id="nextPage">Next</button>
       <!-- Pokémon List (List of 10) -->
       <div id="pokemonList"></div>
 
@@ -39,7 +39,17 @@
         <!-- Button for navigating to next page of Pokémon -->
 
       </div>
+    </main>
 
+    <dialog id="pokemonDialog" class="pokemon-modal">
+      <div class="modal-content">
+        <h2 id="pokemonDisplay"></h2>
+        <img id="pokemonImage" alt="Pokémon image" />
+        <p id="pokemonHeight"></p>
+        <p id="pokemonWeight"></p>
+        <p id="pokemonTypes"></p>
+      </div>
+    </dialog>
       <!-- Modal Dialog for displaying Pokémon information -->
       <dialog id="pokemonDialog">
         <div class="modal-content">
@@ -91,7 +101,6 @@
       </dialog>
     </div>
 
-    <script src="src/main.js"></script>
-    <!-- Links an external JavaScript file -->
+    <script src="/src/main.js"></script>
   </body>
 </html>
