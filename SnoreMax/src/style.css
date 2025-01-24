@@ -145,7 +145,7 @@ dialog {
   width: 500px; /* Sets the width of the modal content */
   height: 500px;
   text-align: center; /* Centers text inside the modal */
-  left: 46%;
+  /* left: %; */
   top: 16%;
 }
 
