@@ -25,6 +25,19 @@
       <div class="pagination">
         <button id="prevPage">Previous</button>
         <button id="nextPage">Next</button>
+      <!-- Pokémon List (List of 10) -->
+      <div id="pokemonList"></div>
+
+
+      <!-- Container for displaying Pokémon list -->
+
+      <!-- move Buttons -->
+      <div id="movebutton">
+        <button id="prevPage">Back</button>
+        <!-- Button for navigating to previous page of Pokémon -->
+        <button id="nextPage">Next</button>
+        <!-- Button for navigating to next page of Pokémon -->
+
       </div>
     </main>
 
@@ -37,6 +50,56 @@
         <p id="pokemonTypes"></p>
       </div>
     </dialog>
+      <!-- Modal Dialog for displaying Pokémon information -->
+      <dialog id="pokemonDialog">
+        <div class="modal-content">
+          <h2 id="pokemonDisplay">Pokemon Name will appear here</h2>
+          <!-- Heading to display Pokémon name -->
+          <img id="pokemonImage" src="" alt="Pokemon Image" />
+
+          <!--Tutorial code-->
+          <hr class="seperator">
+          <div class="stats text-center">
+              <span class="first cp-text col-md-6" id="update_hp">HP 32/32</span>
+              <!-- <span class="cp-text col-md-6" id="update_cp">XP 149</span> -->
+          </div>
+      </div>
+      <!-- <button class="btn-transfer">TRANSFER</button> -->
+      <div class="attributes-container">
+          <div class="col attributes-content" style="min-width: 42%;">
+              <small class="text-muted">Type:</small> <p class="cp-text" id="update_type">Electric / Speed</p>
+              
+          </div>
+          <div class="col attributes-content">
+            <small class="text-muted">Weight:</small> <p class="cp-text" id="update_weight">5.58kg</p>
+            
+          </div>
+          <div class="col attributes-content">
+            <small class="text-muted">Height:</small> <p class="cp-text no-border" id="update_height">0.82m</p>
+            
+          </div>
+      </div>
+      <div class="player-data">
+          <div class="col data-container">
+          <!-- <p class="stardust" id="update_stardust">500</p>
+          <p class="muted-text">Stardust</p> -->
+          </div>
+          <div class="col data-container">
+          <!-- <p class="stardust" id="update_candy">1</p>
+          <p class="muted-text" id="update_candy_title">Pikachu Candy</p> -->
+          </div>
+      </div>
+  </div>
+</div>
+</div>
+
+          <!--Tutorial code-->
+
+          <!-- Image tag for displaying Pokémon image -->
+
+        </div>
+      </dialog>
+    </div>
 
     <script src="/src/main.js"></script>
   </body>
