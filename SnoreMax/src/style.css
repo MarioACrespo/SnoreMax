@@ -41,29 +41,21 @@ body {
   transform: translateX(-50%);
 }
 
-/* Search Button Styles */
-#submitBtn {
-  background-color: #1e88e5;
-  color: white;
+/* Find Pokémon Button Styles */
+.find-pokemon-button {
+  background-color: #1e88e5; /* Blue background */
+  color: white; /* White text */
   border: none;
-  padding: 12px 24px;
-  width: 135px;
-  border-radius: 50%;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  position: absolute;
-  top: 50px;
-  left: 38%;
-  transform: translateX(-50%);
-}
-
-#submitBtn::before {
-  content: "Find Pokémon";
-}
-
-#submitBtn:hover {
-  background-color: #0b6ab8;
+  padding: 20px; /* Adjust padding to make the button circular */
+  width: 150px; /* Set a fixed width for a perfect circle */
+  height: 150px; /* Set a fixed height to make the button a circle */
+  border-radius: 50%; /* Full circle */
+  font-size: 18px; /* Larger text */
+  font-weight: bold; /* Bold text */
+  cursor: pointer; /* Pointer cursor */
+  position: absolute; /* Position it relative to the page */
+  right: 45%; /* Move button 10% from the right edge */
+  top: 10%;
 }
 
 /* Pokémon List Styles */
