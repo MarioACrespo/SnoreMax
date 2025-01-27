@@ -3,12 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pokémon Browser</title>
+    <title>SnoreDex</title>
     <link rel="stylesheet" href="/src/style.css" />
   </head>
+
   <body>
     <header>
-      <h1>Pokémon Browser</h1>
       <form id="addPokemonForm">
         <input
           type="text"
@@ -22,12 +22,15 @@
 
     <main>
       <div id="pokemonList" class="pokemon-list"></div>
-      <div class="pagination">
-        <button id="prevPage">Previous</button>
-        <button id="nextPage">Next</button>
-      </div>
     </main>
 
+    <!-- Pagination Controls -->
+    <div class="pagination">
+      <button id="prevPage">Back</button>
+      <button id="nextPage">Next</button>
+    </div>
+
+    <!-- Modal for Pokémon Details -->
     <dialog id="pokemonDialog" class="pokemon-modal">
       <div class="modal-content">
         <h2 id="pokemonDisplay"></h2>
