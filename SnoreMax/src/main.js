@@ -1,130 +1,131 @@
-const API_URL = "https://pokeapi.co/api/v2/pokemon";
-const pokemonList = document.getElementById("pokemonList"); // Retrieves Pokémon list container element
-const pokemonNameInput = document.getElementById("pokemonName"); // Retrieves Pokémon name input element
-const addPokemonForm = document.getElementById("addPokemonForm"); // Retrieves Pokémon search form element
-const pokemonDialog = document.getElementById("pokemonDialog"); // Retrieves Pokémon modal dialog element
-const pokemonDisplay = document.getElementById("pokemonDisplay"); // Retrieves element to display Pokémon name
-const pokemonImage = document.getElementById("pokemonImage"); // Retrieves element to display Pokémon image
+let currentPage = 1;
+const pokemonPerPage = 3;
 
-let currentPage = 0; // Variable to track current page of Pokémon list
-const pokemonPerPage = 5; // Number of Pokémon to display per page
-let totalPokemonCount = 0; // Total number of Pokémon available in the API
-
-// Fetch Pokémon list based on page and limit
-async function fetchPokemonPage(page = 0) {
-  const offset = page * pokemonPerPage; // Calculates offset based on current page
-  try {
-    const response = await fetch(
-      `${API_URL}?limit=${pokemonPerPage}&offset=${offset}`
-    ); // Fetches Pokémon data from API based on limit and offset
-    if (!response.ok) {
-      throw new Error(`Failed to fetch Pokémon data: ${response.statusText}`);
-    }
-    const data = await response.json(); // Parses response JSON data
-    totalPokemonCount = data.count; // Retrieves total number of Pokémon from API
-    renderPokemonList(data.results); // Renders Pokémon list on the webpage
-  } catch (error) {
-    console.error("Error:", error.message); // Logs error message if fetching data fails
-  }
+// Fetches a list of Pokémon and their details for the current page
+function fetchPokemonList(page = 1) {
+  fetch(
+    `https://pokeapi.co/api/v2/pokemon?limit=${pokemonPerPage}&offset=${
+      (page - 1) * pokemonPerPage
+    }`
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      const pokemonDetailsPromises = data.results.map((pokemon) =>
+        fetch(pokemon.url).then((response) => response.json())
+      );
+      Promise.all(pokemonDetailsPromises).then(createPokemonList);
+    })
+    .catch((error) => console.error("Error fetching Pokémon list:", error));
 }
 
-// Render Pokémon list to the DOM
-function renderPokemonList(pokemonArray) {
-  pokemonList.innerHTML = ""; // Clears existing Pokémon list
-  pokemonArray.forEach((pokemon) => {
-    const pokemonButton = document.createElement("button"); // Creates button element for each Pokémon
-    pokemonButton.textContent =
-      pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1); // Capitalizes Pokémon names
-    pokemonButton.className = "pokemon-button"; // Sets class for styling
-    pokemonButton.addEventListener("click", () => {
-      pokemonNameInput.value = pokemon.name; // Sets Pokémon name in search input
-      displayPokemonCard(pokemon.name); // Displays Pokémon details in modal
-    });
-    pokemonList.appendChild(pokemonButton); // Appends Pokémon button to the list container
+// Creates and displays Pokémon list
+function createPokemonList(pokemonList) {
+  const pokemonListContainer = document.getElementById("pokemonList");
+  pokemonListContainer.innerHTML = "";
+  pokemonList.forEach((pokemon) => {
+    const pokemonItem = document.createElement("div");
+    pokemonItem.classList.add("pokemon-item");
+
+    const pokemonImage = document.createElement("img");
+    pokemonImage.src = pokemon.sprites.front_default;
+    pokemonImage.alt = pokemon.name;
+    pokemonImage.classList.add("pokemon-image");
+
+    const pokemonName = document.createElement("div");
+    pokemonName.classList.add("pokemon-name");
+    pokemonName.textContent = pokemon.name;
+
+    pokemonItem.appendChild(pokemonImage);
+    pokemonItem.appendChild(pokemonName);
+    pokemonItem.addEventListener("click", () => fetchPokemon(pokemon.name));
+
+    pokemonListContainer.appendChild(pokemonItem);
   });
 }
 
-// Display Pokémon details in the modal (using <dialog>)
-async function displayPokemonCard(pokemonName) {
-  try {
-    const response = await fetch(`${API_URL}/${pokemonName}`); // Fetches Pokémon details by name
-    if (!response.ok) {
-      throw new Error(`Failed to fetch Pokémon data: ${response.statusText}`);
-    }
-    const pokemon = await response.json(); // Parses fetched Pokémon data
-    pokemonDisplay.textContent =
-      pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1); // Capitalizes Pokémon name
-    pokemonImage.src =
-      pokemon.sprites.other.dream_world.front_default ||
-      pokemon.sprites.front_default; // Sets Pokémon image URL
-
-    pokemonDialog.showModal(); // Displays modal with Pokémon details
-  } catch (error) {
-    alert("Pokémon not found. Please try again."); // Shows alert if Pokémon data fetch fails
-    console.error("Error:", error.message); // Logs error message
-  }
+// Fetches Pokémon details by name for modal
+function fetchPokemon(pokemonName) {
+  fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
+    .then((response) => response.json())
+    .then(showPokemonDetails)
+    .catch((error) => console.error("Error fetching Pokémon data:", error));
 }
 
-// Handle the form submission for searching a Pokémon by name and showing a modal
-addPokemonForm.addEventListener("submit", (e) => {
-  e.preventDefault(); // Prevents default form submission
-  const pokemonName = pokemonNameInput.value.trim(); // Retrieves and trims Pokémon name input
-  if (pokemonName) {
-    displayPokemonCard(pokemonName); // Displays Pokémon details for the searched name in modal
-    pokemonNameInput.value = ""; // Clears input field after submission
-  } else {
-    alert("Please enter a Pokémon name!"); // Alerts user if input is empty
-  }
-});
+// Displays Pokémon details in the modal
+function showPokemonDetails(pokemonData) {
+  const modal = document.getElementById("pokemonDialog");
+  document.getElementById("pokemonDisplay").textContent = pokemonData.name;
+  document.getElementById("pokemonImage").src =
+    pokemonData.sprites.front_default;
 
-// Handle modal close when clicked outside the modal content
-pokemonDialog.addEventListener("click", (e) => {
-  if (e.target === pokemonDialog) {
-    pokemonDialog.close();
-  }
-});
+  const { feet, inches } = convertHeightToFeetInches(pokemonData.height / 10);
+  const weightInPounds = convertWeightToPounds(pokemonData.weight / 10);
 
-// Pagination controls
+  document.getElementById(
+    "pokemonHeight"
+  ).textContent = `Height: ${feet}' ${inches}"`;
+  document.getElementById(
+    "pokemonWeight"
+  ).textContent = `Weight: ${weightInPounds.toFixed(2)} lbs`;
+  document.getElementById(
+    "pokemonTypes"
+  ).textContent = `Types: ${pokemonData.types
+    .map((type) => type.type.name)
+    .join(", ")}`;
+
+  modal.showModal();
+}
+
+// Converts height to feet and inches
+function convertHeightToFeetInches(heightInMeters) {
+  const heightInInches = heightInMeters * 39.3701;
+  return {
+    feet: Math.floor(heightInInches / 12),
+    inches: Math.round(heightInInches % 12),
+  };
+}
+
+// Converts weight to pounds
+function convertWeightToPounds(weightInKilograms) {
+  return weightInKilograms * 2.20462;
+}
+
+// Event listener for form submission
+document
+  .getElementById("addPokemonForm")
+  .addEventListener("submit", (event) => {
+    event.preventDefault();
+    fetchPokemon(document.getElementById("pokemonName").value.toLowerCase());
+  });
+
+// Event listeners for pagination
 document.getElementById("nextPage").addEventListener("click", () => {
-  if ((currentPage + 1) * pokemonPerPage < totalPokemonCount) {
-    currentPage++;
-    fetchPokemonPage(currentPage);
-  }
+  currentPage++;
+  fetchPokemonList(currentPage);
+  scrollList(300);
 });
 
 document.getElementById("prevPage").addEventListener("click", () => {
-  if (currentPage > 0) {
+  if (currentPage > 1) {
     currentPage--;
-    fetchPokemonPage(currentPage);
+    fetchPokemonList(currentPage);
+    scrollList(-300);
   }
 });
 
-// Initial fetch and display of 10 Pokémon
-fetchPokemonPage(currentPage);
+// Function to scroll the list smoothly
+function scrollList(distance) {
+  document
+    .getElementById("pokemonList")
+    .scrollBy({ top: 0, left: distance, behavior: "smooth" });
+}
 
-//code for fetching stats:
-const getPokemonData = async (term) => {
-  const url = "https://pokeapi.co/api/v2/pokemon";
-  const response = await fetch(url);
+// Event listener to close the modal when clicked outside
+document.getElementById("pokemonDialog").addEventListener("click", (event) => {
+  if (event.target === document.getElementById("pokemonDialog")) {
+    document.getElementById("pokemonDialog").close();
+  }
+});
 
-  // update ui with data
-
-  //document.getElementById("pokemonDisplay").innerHTML = pokemon.name;
-  document.getElementById(
-    "update_candy_title"
-  ).innerHTML = `${pokemon.name} Candy`;
-  document.getElementById("update_hp").innerHTML = `HP ${Math.floor(
-    Math.random() * pokemon.stats[0].base_stat + 1
-  )}/${pokemon.stats[0].base_stat}`;
-  document.getElementById(
-    "update_cp"
-  ).innerHTML = `XP ${pokemon.base_experience}`;
-  document.getElementById(
-    "update_type"
-  ).innerHTML = `${pokemon.types[0].type.name} / ${pokemon.types[1].type.name}`;
-  document.getElementById("update_weight").innerHTML = `${pokemon.weight}kg`;
-  document.getElementById("update_height").innerHTML = `0.${pokemon.height}m`;
-};
-
-submitBtn.addEventListener("click", () => getPokemonData(search_term.value));
-//
+// Initial fetch on page load
+fetchPokemonList(currentPage);
